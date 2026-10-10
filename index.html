@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Media y extrema razón · Proporción áurea — Geometría I · INSPT-UTN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=Outfit:wght@500&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap">
+<style>
+/* Disposición: una columna de lectura sobre papel cuadriculado; en escritorio la figura y el texto de su paso van lado a lado. */
+:root {
+  --paper:#FBF8F1; --paper-2:#FFFDF8; --paper-3:#FFFFFF;
+  --ink:#20201C; --ink-soft:#4C4942; --ink-faint:#7A756B;
+  --rule:#E7E0D1; --rule-2:#D7CDB9;
+  --blue:#2B5A93; --blue-soft:#5E7CA8; --blue-wash:#E8EFF6;
+  --amber:#C77A40; --amber-soft:#D89D52; --amber-wash:#F6EBD8; --amber-ink:#8A4F1F;
+  --green:#45785A; --green-wash:#E7EFE7;
+  --rust:#BC5235; --rust-wash:#F5E5DD;
+  --grid:rgba(43,90,147,.05);
+  --serif:'Fraunces',Georgia,serif;
+  --sans:'Hanken Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Fira Code',ui-monospace,Menlo,monospace;
+  --math:'STIX Two Text','STIXGeneral','Cambria Math','Times New Roman',serif;
+  --f-body:var(--sans); --muted:var(--ink-soft);
+  --lab-terra:#b57d4c; --lab-blue:#415a8e; --lab-dark:#20201c; --lab-cream:#faf8f1; --lab-gray:#6579a1;
+  --navy:#0f2244;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--sans);font-size:15px;line-height:1.6;color:var(--ink);background:var(--paper)}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+h2,h3,h4{font-family:var(--serif);color:var(--blue);line-height:1.25;text-wrap:balance;margin:0}
+h2{font-size:1.7rem;font-weight:400;margin-bottom:10px}
+h3{font-size:1.2rem;font-weight:400;margin:34px 0 12px}
+h4{font-size:1.02rem;font-weight:700;color:var(--ink)}
+p{margin:0 0 .75em}
+b,strong{font-weight:600}
+button{font-family:inherit;font-size:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* ---------- Encabezado y pie ---------- */
+.topbar{background:linear-gradient(135deg,var(--navy) 0%,#1a3a6e 100%);color:#e0f2fe;padding:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.15);position:relative;z-index:1}
+.topbar-inner{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-inspt{font-size:12px;color:#7dd3fc;letter-spacing:.1em;font-weight:700}
+.brand-title{font-family:'Fraunces',serif;font-size:18px;color:#ffffff;font-weight:700}
+.brand-sub{font-size:12px;color:#bfdbfe}
+.lab-logo{background:var(--lab-cream);padding:8px 18px 7px;border-radius:12px;text-align:left;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.lab-name{display:flex;align-items:center;font-family:'Fraunces',Georgia,serif;font-size:16px;font-weight:700;letter-spacing:-0.01em;line-height:1.2}
+.lab-name .bullet{width:8px;height:8px;border-radius:50%;background:var(--lab-terra);flex-shrink:0;margin-right:7px}
+.lab-name .lab{color:var(--lab-dark)}
+.lab-name .best{color:var(--lab-terra)}
+.lab-name .ia{color:var(--lab-blue)}
+.lab-sub{color:var(--lab-gray);font-size:11px;font-weight:500;margin-top:1px;padding-left:15px;font-family:'Outfit',sans-serif}
+.site-footer{background:var(--navy);color:#cbd5e1;padding:30px 0 24px;margin-top:40px;position:relative;z-index:1}
+.footer-inner{max-width:1080px;margin:0 auto;padding:0 20px;text-align:center}
+.footer-quote{font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;color:#e0f2fe;margin-bottom:16px}
+.footer-lab{display:inline-block;background:var(--lab-cream);padding:10px 22px 9px;border-radius:12px;text-align:left;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.footer-lab .lab-name{display:flex;align-items:center;font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:700;line-height:1.2}
+.footer-lab .bullet{width:8px;height:8px;border-radius:50%;background:var(--lab-terra);flex-shrink:0;margin-right:7px}
+.footer-lab .lab{color:var(--lab-dark)}
+.footer-lab .best{color:var(--lab-terra)}
+.footer-lab .ia{color:var(--lab-blue)}
+.footer-lab .lab-sub{color:var(--lab-gray);font-size:12px;font-weight:500;margin-top:1px;padding-left:15px;font-family:'Outfit',sans-serif}
+
+.autor{font-family:var(--sans);font-size:14px;font-weight:600;color:#e0f2fe;letter-spacing:.01em}
+.footer-quote{margin-bottom:12px}
+/* ---------- Pestañas ---------- */
+.tabs-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--paper-3);border-bottom:1px solid var(--rule);box-shadow:0 2px 4px rgba(32,32,28,.04)}
+.tabs-nav{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+.tab-btn{background:none;border:0;border-bottom:3px solid transparent;padding:13px 14px 10px;font-size:14px;font-weight:600;color:var(--ink-faint);cursor:pointer;white-space:nowrap;flex-shrink:0}
+.tab-btn:hover{color:var(--blue)}
+.tab-btn.active{color:var(--ink);border-bottom-color:var(--amber)}
+.tab-btn .tn{font-family:var(--mono);font-size:.72rem;font-weight:500;color:var(--amber-ink);margin-right:6px}
+.prog{margin-left:auto;padding-left:14px;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--ink-soft);white-space:nowrap;flex-shrink:0}
+
+main{position:relative;z-index:1;max-width:880px;margin:0 auto;padding:30px 20px 20px}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.lead{font-size:1.02rem;color:var(--ink-soft);max-width:66ch}
+.txt{max-width:70ch}
+
+/* ---------- Cajas ---------- */
+.caja{border-left:4px solid var(--blue);background:var(--blue-wash);padding:14px 18px 12px;margin:16px 0;border-radius:0 6px 6px 0}
+.caja>p:last-child,.caja>.calc:last-child{margin-bottom:0}
+.lbl{display:block;font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.caja.voz{border-left-color:var(--amber);background:var(--amber-wash)}
+.caja.voz .lbl{color:var(--amber-ink)}
+.caja.err{border-left-color:var(--rust);background:var(--rust-wash)}
+.caja.err .lbl{color:var(--rust)}
+.malbien{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:10px}
+.mb{background:var(--paper-3);border:1px solid var(--rule-2);border-top:3px solid var(--rust);padding:10px 14px 8px;border-radius:4px;min-width:0}
+.mb.si{border-top-color:var(--green)}
+.mb-t{font-weight:700;font-size:.9rem;color:var(--rust);margin-bottom:4px}
+.mb.si .mb-t{color:var(--green)}
+.mb p{font-size:.92rem;margin-bottom:.4em}
+
+/* ---------- Matemática (STIX Two Text; cursiva sólo en variables) ---------- */
+.mi,.calc,.geo text{font-family:var(--math);font-style:normal}
+.mi{font-size:1.1em;line-height:1.2}
+.mi i,.calc i{font-style:italic}
+.ro{font-style:normal}
+.tx{font-family:var(--sans);font-size:.82em;color:var(--ink-soft);font-style:normal}
+.calc{font-size:1.14rem;line-height:1.3;margin:10px 0 12px;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.calc .ln{padding:.3em 0;white-space:normal}
+.calc .ln.c{padding-left:1.7em}
+.calc.one{text-align:center}
+.calc.fin{background:var(--paper-3);border:1px solid var(--rule-2);border-radius:4px;padding:6px 14px}
+.fr{display:inline-flex;flex-direction:column;text-align:center;margin:0 .14em;vertical-align:middle;line-height:1.15}
+.fr>.fn{padding:0 .4em .14em}
+.fr>.fd{padding:.26em .4em 0;border-top:1.5px solid currentColor}
+.mi sub,.mi sup,.calc sub,.calc sup{font-size:.72em;line-height:0;vertical-align:baseline;position:relative}
+.mi sub,.calc sub{top:.34em}
+.mi sup,.calc sup{top:-.48em}
+.at{display:inline-block;white-space:nowrap}
+.at.pt{display:inline-flex;align-items:flex-start;vertical-align:middle}
+.at.pt>sup{top:.35em;margin-left:.06em}
+.sg{display:inline-block;border-top:1.3px solid currentColor;line-height:1.05;padding:.06em .03em 0;margin:0 .04em}
+.sq{display:inline-flex;align-items:stretch;vertical-align:middle;margin:0 .08em}
+.sq>svg{width:.6em;min-width:8px;align-self:stretch;height:auto;overflow:visible;flex-shrink:0}
+.sq-b{display:inline-flex;align-items:center;border-top:1.4px solid currentColor;padding:.1em .22em .04em .1em;white-space:nowrap}
+.par{display:inline-flex;align-items:stretch;vertical-align:middle}
+.par-w{position:relative;flex-shrink:0;align-self:stretch;width:.42em;min-width:6px}
+.par-w>svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.par-c{display:inline-block;white-space:nowrap}
+.os{margin:0 .26em}
+.ob{margin:0 .16em}
+.ou{margin-right:.02em}
+.pc{margin-right:.24em}
+.psc{margin:0 .18em}
+.gap{display:inline-block;width:1.2em}
+.grp{display:inline-block;white-space:nowrap;vertical-align:middle;max-width:100%;margin:.22em 0}
+.sm{display:none}
+.mi .os{margin:0 .2em}
+.mi .ob{margin:0 .12em}
+
+/* ---------- Acordeones ---------- */
+.acc{border:1px solid var(--rule-2);background:var(--paper-3);border-radius:6px;margin:12px 0}
+.acc>.acc-h{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;padding:12px 16px;cursor:pointer;font-family:var(--serif);font-size:1.04rem;color:var(--ink);scroll-margin-top:70px}
+.acc-t{min-width:0;line-height:1.55}
+.acc>.acc-h .chev{margin-left:auto;color:var(--blue);transition:transform .2s}
+.acc.open>.acc-h .chev{transform:rotate(180deg)}
+.acc>.acc-c{display:none;padding:2px 18px 14px;border-top:1px solid var(--rule)}
+.acc.open>.acc-c{display:block}
+.tag{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-3);background:var(--blue);padding:3px 8px;border-radius:3px;flex-shrink:0}
+.paso-t{font-weight:600;margin:14px 0 2px;color:var(--ink)}
+.paso-t .pn{font-family:var(--mono);font-size:.74rem;color:var(--amber-ink);margin-right:8px}
+.nota{font-size:.88rem;color:var(--ink-soft)}
+
+/* ---------- Figuras ---------- */
+.figbox,.labbox{background:var(--paper-3);border:1px solid var(--rule-2);border-radius:8px;padding:16px;margin:16px 0}
+.figrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:22px;align-items:start}
+.svg-host{background:var(--paper-2);border:1px solid var(--rule);border-radius:4px;line-height:0}
+.svg-host svg{display:block;width:100%;height:auto;max-width:100%}
+.geo .pl{font-size:18px;font-style:italic;paint-order:stroke;stroke:#FFFDF8;stroke-width:4px;stroke-linejoin:round}
+.stepper{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px}
+.st-n{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;color:var(--ink-soft);white-space:nowrap}
+.btn{background:var(--blue);color:#fff;border:1px solid var(--blue);border-radius:5px;padding:7px 13px;font-weight:600;font-size:.86rem;cursor:pointer;white-space:nowrap}
+.btn:hover{background:#234a79}
+.btn.sec{background:var(--paper-3);color:var(--blue)}
+.btn.sec:hover{background:var(--blue-wash)}
+.btn:disabled{opacity:.4;cursor:default}
+.cap-g{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--amber-ink);margin-bottom:2px}
+.cap-t{font-family:var(--serif);font-size:1.12rem;font-weight:700;color:var(--ink);margin-bottom:10px}
+.tho{display:grid;gap:8px}
+.tho-r{display:grid;grid-template-columns:5.6rem minmax(0,1fr);gap:10px;align-items:baseline}
+.tho-l{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.tho-ob{background:var(--blue-wash);margin:0 -8px;padding:7px 8px;border-radius:4px}
+.tho-ob .tho-l{color:var(--blue)}
+.cap-b{margin-top:12px;border-top:1px dashed var(--rule-2);padding-top:6px}
+.cap-b .calc{font-size:1.06rem}
+.st-list{list-style:none;margin:16px 0 0;padding:12px 0 0;border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 18px}
+.st-list li{min-width:0}
+.st-list .st-gl{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);padding:6px 0 2px;grid-column:1/-1}
+.st-go{display:flex;gap:8px;align-items:baseline;width:100%;text-align:left;background:none;border:0;padding:4px 6px;border-radius:4px;cursor:pointer;font-size:.88rem;color:var(--ink-soft)}
+.st-go:hover{background:var(--blue-wash)}
+.st-go .n{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint)}
+.st-go.on{color:var(--ink);font-weight:600;background:var(--amber-wash)}
+.st-go.on .n{color:var(--amber-ink)}
+.leg{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:10px;font-size:.84rem;color:var(--ink-soft)}
+.leg>span{display:inline-flex;align-items:center;gap:6px}
+.leg .sw{width:14px;height:14px;border-radius:2px;display:inline-block;border:1.5px solid;flex-shrink:0}
+
+/* ---------- Exploradores ---------- */
+.seg{display:inline-flex;border:1px solid var(--blue);border-radius:5px;overflow:hidden;margin-bottom:12px}
+.seg-b{background:var(--paper-3);border:0;padding:7px 13px;font-weight:600;font-size:.86rem;color:var(--blue);cursor:pointer}
+.seg-b+.seg-b{border-left:1px solid var(--blue)}
+.seg-b.on{background:var(--blue);color:#fff}
+.ctl{display:grid;gap:6px;margin-top:12px}
+.ctl label{font-size:.86rem;color:var(--ink-soft)}
+.ctl input[type=range]{width:100%;accent-color:var(--blue);margin:0}
+.ctl-b{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.svg-host.drag{cursor:ew-resize;touch-action:pan-y}
+.panel .calc{font-size:1.06rem;margin:4px 0}
+.ver{margin-top:10px;padding:9px 12px;border-radius:4px;font-size:.93rem;background:var(--amber-wash);color:var(--ink)}
+.ver.ok{background:var(--green-wash)}
+
+/* ---------- Práctica ---------- */
+.ej{background:var(--paper-3);border:1px solid var(--rule-2);border-radius:8px;padding:16px 18px;margin:14px 0}
+.ej-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.badge{font-family:var(--mono);font-size:.7rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;color:var(--blue)}
+.ej-st{font-size:.82rem;font-weight:600;color:var(--green)}
+.ej-enun{margin-bottom:12px;max-width:70ch}
+.ops{display:grid;gap:8px}
+.op{display:block;width:100%;text-align:left;background:var(--paper-2);border:1px solid var(--rule-2);border-radius:5px;padding:9px 13px;cursor:pointer}
+.op:hover:not(:disabled){border-color:var(--blue);background:var(--blue-wash)}
+.op:disabled{cursor:default}
+.op.no{border-color:var(--rust);background:var(--rust-wash);color:var(--ink-soft)}
+.op.si{border-color:var(--green);background:var(--green-wash);font-weight:600}
+.numrow{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.numrow label{font-size:.88rem;color:var(--ink-soft)}
+.numrow input{font-family:var(--math);font-size:1.1rem;width:9.5em;max-width:100%;padding:6px 10px;border:1px solid var(--rule-2);border-radius:5px;background:var(--paper-2);color:var(--ink)}
+.numrow input.si{border-color:var(--green);background:var(--green-wash)}
+.numrow input.no{border-color:var(--rust)}
+.un{color:var(--ink-soft)}
+.fb{margin-top:10px;padding:9px 12px;border-radius:4px;font-size:.93rem}
+.fb.si{background:var(--green-wash)}
+.fb.no{background:var(--rust-wash)}
+.ej-acc{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px}
+.lnk{background:none;border:0;padding:2px 0;color:var(--blue);font-weight:600;font-size:.88rem;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.lnk:disabled{color:var(--ink-faint);text-decoration:none;cursor:default}
+.pista{margin-top:8px;padding:8px 12px;border-left:3px solid var(--amber);background:var(--amber-wash);font-size:.92rem}
+.reso{margin-top:12px;border-top:1px dashed var(--rule-2);padding-top:4px}
+.reso .calc{font-size:1.06rem;margin:4px 0 6px}
+
+/* ---------- Tablas ---------- */
+.scrollx{overflow-x:auto;overflow-y:hidden;margin:12px 0}
+table.tbl{border-collapse:collapse;width:100%;min-width:560px;background:var(--paper-3);font-size:.93rem}
+.tbl th{font-family:var(--mono);font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;text-align:left;color:var(--blue);border-bottom:2px solid var(--blue);padding:8px 12px}
+.tbl td{border-bottom:1px solid var(--rule);padding:9px 12px;vertical-align:middle}
+.tbl td:first-child{font-weight:600}
+.sig{display:flex;justify-content:flex-end;margin-top:28px}
+.fin-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:22px}
+
+@media (max-width:760px){
+  .figrow{grid-template-columns:minmax(0,1fr)}
+  .malbien{grid-template-columns:minmax(0,1fr)}
+  .st-list{grid-template-columns:minmax(0,1fr)}
+  h2{font-size:1.45rem}
+}
+@media (max-width:640px){
+  .lg{display:none}
+  .sm{display:inline}
+  .tabs-nav{padding:0 16px}
+  .tab-btn{padding:12px 10px 9px}
+  main{padding:22px 16px 16px}
+  .topbar-inner,.footer-inner{padding:0 16px}
+  .stepper .btn{padding:7px 9px;font-size:.8rem}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div>
+        <div class="brand-inspt">I·N·S·P·T &nbsp;·&nbsp; UTN</div>
+        <div class="brand-title">Media y extrema razón · Proporción áurea</div>
+        <div class="brand-sub">Geometría I</div>
+      </div>
+    </div>
+    <div class="autor">Prof. Gastón Ayala</div>
+  </div>
+</header>
+
+<nav class="tabs-wrap" aria-label="Temas">
+  <div class="tabs-nav" role="tablist">
+    <button class="tab-btn active" role="tab" data-tab="def"><span class="tn">1</span>Definición</button>
+    <button class="tab-btn" role="tab" data-tab="cuad"><span class="tn">2</span><span class="lg">Con el cuadrado</span><span class="sm">Cuadrado</span></button>
+    <button class="tab-btn" role="tab" data-tab="pot"><span class="tn">3</span>Tangente<span class="lg"> y secante</span></button>
+    <button class="tab-btn" role="tab" data-tab="oro"><span class="tn">4</span>Número de oro</button>
+    <button class="tab-btn" role="tab" data-tab="res">Resumen</button>
+    <span class="prog" id="prog"></span>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ================= 1 · DEFINICIÓN ================= -->
+<section class="tab-content active" id="tab-def">
+  <h2>Dividir un segmento en media y extrema razón</h2>
+  <p class="lead">Dado un segmento $\s{AB}$, buscamos un punto $X$ que lo parta en dos segmentos desiguales de una manera precisa: que el segmento entero sea al mayor como el mayor es al menor.</p>
+
+  <div class="caja">
+    <span class="lbl">Definición</span>
+    <p>Dividir un segmento $\s{AB}$ en media y extrema razón es determinar sobre él un punto $X$ que lo divide en dos segmentos tales que el mayor es medio proporcional entre el segmento entero y el menor.</p>
+    <div class="mini" data-mini="int"></div>
+    <div class="calc" data-calc>
+      \f{\s{AB}}{\s{AX}} = \f{\s{AX}}{\s{XB}}   ⟺   \s{AB} · \s{XB} = \s{AX}^{2}
+    </div>
+    <p>Llamamos $\s{AX}$ al segmento mayor: $X$ queda más cerca de $B$ que de $A$. Si se eligiera como mayor el segmento que llega a $B$, se obtendría el simétrico de $X$ respecto del punto medio de $\s{AB}$.</p>
+  </div>
+
+  <div class="caja voz">
+    <span class="lbl">Cómo leerla</span>
+    <p><b>En la proporción.</b> $\s{AX}$ ocupa los dos lugares del medio: es la media. $\s{AB}$ y $\s{XB}$ ocupan los extremos. Como en toda proporción, el producto de los extremos es igual al producto de los medios:</p>
+    <div class="calc" data-calc>
+      |\s{AB}| · |\s{XB}| = |\s{AX}| · |\s{AX}| = |\s{AX}|^{2}
+    </div>
+    <p><b>Con áreas.</b> $|\s{AB}| · |\s{XB}|$ es el área de un rectángulo y $|\s{AX}|^{2}$ es el área de un cuadrado. Entonces: el rectángulo que tiene por lados al segmento entero y al menor tiene la misma área que el cuadrado construido sobre el mayor.</p>
+  </div>
+
+  <div class="caja">
+    <span class="lbl">Dos puntos</span>
+    <p>Si mantenemos que la media es el segmento que sale de $A$, hay dos puntos que cumplen la condición: uno interior, $X$, y otro exterior, $X′$, sobre la prolongación de $\s{AB}$ del lado de $A$. Para el exterior, la media es $\s{AX′}$:</p>
+    <div class="mini" data-mini="ext"></div>
+    <div class="calc" data-calc>
+      \f{\s{AB}}{\s{AX′}} = \f{\s{AX′}}{\s{X′B}}   ⟺   \s{AB} · \s{X′B} = \s{AX′}^{2}
+    </div>
+    <p>En el exterior la media $\s{AX′}$ ya no es el segmento mayor: es mayor que $\s{AB}$ y menor que $\s{X′B}$.</p>
+  </div>
+
+  <h3>Explorador: ¿dónde está el punto?</h3>
+  <p class="txt">El segmento $\s{AB}$ mide 2. Mové el punto, con el deslizador o arrastrándolo, hasta que el cuadrado y el rectángulo tengan la misma área.</p>
+  <div class="labbox" id="lab1">
+    <div class="seg" role="group" aria-label="Punto a ubicar">
+      <button class="seg-b on" data-modo="int">Punto interior</button>
+      <button class="seg-b" data-modo="ext">Punto exterior</button>
+    </div>
+    <div class="figrow">
+      <div>
+        <div class="svg-host drag" id="lab1-svg"></div>
+        <div class="leg">
+          <span><i class="sw" style="background:rgba(43,90,147,.2);border-color:#2B5A93"></i><span id="lab1-l1"></span></span>
+          <span><i class="sw" style="background:rgba(199,122,64,.25);border-color:#C77A40"></i><span id="lab1-l2"></span></span>
+        </div>
+        <div class="ctl">
+          <label for="lab1-x" id="lab1-lbl"></label>
+          <input type="range" id="lab1-x" min="0.1" max="1.9" step="0.01" value="1">
+          <div class="ctl-b"><button class="btn sec" id="lab1-ex" disabled>Mostrar el punto exacto</button></div>
+        </div>
+      </div>
+      <div class="panel">
+        <div id="lab1-panel"></div>
+        <div class="ver" id="lab1-ver" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja err">
+    <span class="lbl">Error típico</span>
+    <p><b>Creer que alcanza con el punto medio.</b> Dividir en media y extrema razón no es dividir por la mitad. Con $|\s{AB}| = 2$:</p>
+    <div class="malbien">
+      <div class="mb">
+        <div class="mb-t">✗ Así no</div>
+        <p>Tomar $X$ en el punto medio, con $|\s{AX}| = |\s{XB}| = \f{2}{2} = 1$. Si sirviera, las dos razones darían lo mismo:</p>
+        <div class="calc" data-calc>
+          \f{\s{AB}}{\s{AX}} = \f{2}{1} = 2
+          \f{\s{AX}}{\s{XB}} = \f{1}{1} = 1
+        </div>
+        <p>Y $2 ≠ 1$.</p>
+      </div>
+      <div class="mb si">
+        <div class="mb-t">✓ Así sí</div>
+        <p>Antes de aceptar un punto se controla la condición $|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|$. Para el punto medio:</p>
+        <div class="calc" data-calc>
+          |\s{AX}|^{2} = 1^{2} = 1
+          |\s{AB}| · |\s{XB}| = 2 · 1 = 2
+        </div>
+        <p>Como $1 &lt; 2$, el cuadrado es menor que el rectángulo: $\s{AX}$ tiene que crecer. $X$ queda entre el punto medio y $B$.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Práctica</h3>
+  <div data-practica="def"></div>
+  <div class="sig"><button class="btn" data-go="cuad">Seguir: construcción con el cuadrado →</button></div>
+</section>
+
+<!-- ================= 2 · CON EL CUADRADO ================= -->
+<section class="tab-content" id="tab-cuad">
+  <h2>Construcción con el cuadrado</h2>
+  <p class="lead">La definición dice qué punto buscamos. Esta construcción, con regla y compás, lo encuentra; después se justifica comparando áreas.</p>
+
+  <h3>El punto interior</h3>
+  <div class="figbox" data-fig="f1"></div>
+
+  <div class="caja voz">
+    <span class="lbl">La idea de la justificación</span>
+    <p>Todo se apoya en dos hechos: la diferencia de cuadrados, $(a + b) · (a − b) = a^{2} − b^{2}$, y el teorema de Pitágoras en el triángulo $EAB$. Con ellos, el rectángulo $DFGL$ y el cuadrado $ABCD$ resultan de igual área. Al quitarles la parte común queda un cuadrado igual a un rectángulo, que es lo que pide la definición.</p>
+  </div>
+
+  <div class="acc" id="acc-ext">
+    <button class="acc-h" aria-expanded="false"><span class="tag">Punto exterior</span><span class="acc-t">¿Dónde está el otro punto, $X′$?</span><span class="chev">▾</span></button>
+    <div class="acc-c">
+      <p class="txt" style="margin-top:12px">La construcción es la misma, pero $\s{EB}$ se lleva hacia el otro lado: sobre la semirrecta $ED$. En la justificación, en lugar de restar un rectángulo se suma.</p>
+      <div class="figbox" data-fig="f2"></div>
+    </div>
+  </div>
+
+  <h3>Las medidas</h3>
+  <p class="txt">Llamamos $l$ a la medida de $\s{AB}$. La construcción permite calcular cuánto miden $\s{AX}$ y $\s{AX′}$.</p>
+
+  <div class="acc open">
+    <button class="acc-h" aria-expanded="true"><span class="tag">Ejemplo 1</span><span class="acc-t">¿Cuánto mide $\s{AX}$?</span><span class="chev">▾</span></button>
+    <div class="acc-c">
+      <p class="paso-t"><span class="pn">1</span>El cateto $\s{AE}$</p>
+      <p>$E$ es el punto medio de $\s{AD}$, y $\s{AD}$ mide $l$ por ser lado del cuadrado.</p>
+      <div class="calc" data-calc>
+        |\s{AE}| = \f{|\s{AD}|}{2} = \f{l}{2}
+      </div>
+      <p class="paso-t"><span class="pn">2</span>La hipotenusa $\s{EB}$</p>
+      <p>El triángulo $EAB$ es rectángulo en $A$. Por el teorema de Pitágoras:</p>
+      <div class="calc" data-calc>
+        |\s{EB}|^{2} = |\s{AB}|^{2} + |\s{AE}|^{2}
+        = l^{2} + \p{\f{l}{2}}^{2}
+        = l^{2} + \f{l^{2}}{4}
+        = \f{4 l^{2}}{4} + \f{l^{2}}{4}
+        = \f{5 l^{2}}{4}
+        |\s{EB}| = \r{\f{5 l^{2}}{4}} = \f{\r{5} · \r{l^{2}}}{\r{4}} = \f{\r{5}}{2} l
+      </div>
+      <p class="paso-t"><span class="pn">3</span>El segmento $\s{AX}$</p>
+      <p>$\s{AX} \cg \s{AF}$ por ser lados del cuadrado $AFGX$, y $\s{EF} \cg \s{EB}$ por construcción.</p>
+      <div class="calc" data-calc>
+        |\s{AX}| = |\s{AF}| = |\s{EF}| − |\s{EA}| = |\s{EB}| − |\s{EA}|
+        = \f{\r{5}}{2} l − \f{1}{2} l
+        = \f{\r{5} − 1}{2} l
+      </div>
+      <p>En decimales, con $\r{5} ≈ 2,236$:</p>
+      <div class="calc" data-calc>
+        \f{\r{5} − 1}{2} ≈ \f{2,236 − 1}{2} = \f{1,236}{2} = 0,618
+      </div>
+      <div class="calc fin" data-calc>
+        |\s{AX}| = \f{\r{5} − 1}{2} l ≈ 0,618 l
+      </div>
+      <p class="paso-t"><span class="pn">4</span>Verificación con $l = 2$</p>
+      <p>Comprobamos la definición, $|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|$, con los valores exactos.</p>
+      <div class="calc" data-calc>
+        |\s{AX}| = \f{\r{5} − 1}{2} · 2 = \r{5} − 1
+        |\s{XB}| = |\s{AB}| − |\s{AX}| = 2 − (\r{5} − 1) = 2 − \r{5} + 1 = 3 − \r{5}
+        |\s{AX}|^{2} = (\r{5} − 1)^{2} = (\r{5})^{2} − 2 · \r{5} · 1 + 1^{2} = 5 − 2 \r{5} + 1 = 6 − 2 \r{5}
+        |\s{AB}| · |\s{XB}| = 2 · (3 − \r{5}) = 2 · 3 − 2 · \r{5} = 6 − 2 \r{5}
+      </div>
+      <p>Los dos resultados coinciden. ✓</p>
+    </div>
+  </div>
+
+  <div class="acc">
+    <button class="acc-h" aria-expanded="false"><span class="tag">Ejemplo 2</span><span class="acc-t">¿Cuánto mide $\s{AX′}$?</span><span class="chev">▾</span></button>
+    <div class="acc-c">
+      <p class="paso-t"><span class="pn">1</span>Lo que ya tenemos</p>
+      <p>$\s{EF′} \cg \s{EB}$ por construcción, y del Ejemplo 1:</p>
+      <div class="calc" data-calc>
+        |\s{EF′}| = |\s{EB}| = \f{\r{5}}{2} l       |\s{AE}| = \f{l}{2}
+      </div>
+      <p class="paso-t"><span class="pn">2</span>El segmento $\s{AX′}$</p>
+      <p>$E$ está entre $A$ y $F′$, así que las medidas se suman. $\s{AX′} \cg \s{AF′}$ por ser lados del cuadrado $AF′G′X′$.</p>
+      <div class="calc" data-calc>
+        |\s{AX′}| = |\s{AF′}| = |\s{AE}| + |\s{EF′}|
+        = \f{1}{2} l + \f{\r{5}}{2} l
+        = \f{\r{5} + 1}{2} l
+      </div>
+      <p>En decimales, con $\r{5} ≈ 2,236$:</p>
+      <div class="calc" data-calc>
+        \f{\r{5} + 1}{2} ≈ \f{2,236 + 1}{2} = \f{3,236}{2} = 1,618
+      </div>
+      <div class="calc fin" data-calc>
+        |\s{AX′}| = \f{\r{5} + 1}{2} l ≈ 1,618 l
+      </div>
+      <p>$\s{AX′}$ es mayor que $\s{AB}$: el punto exterior queda más lejos de $A$ que $B$, del otro lado.</p>
+    </div>
+  </div>
+
+  <div class="caja err">
+    <span class="lbl">Error típico</span>
+    <p><b>Hacer centro en $A$ en lugar de en $E$.</b> El compás lleva $\s{EB}$ con centro en $E$; si se pincha en $A$, el punto no sale.</p>
+    <div class="malbien">
+      <div class="mb">
+        <div class="mb-t">✗ Así no</div>
+        <p>Con centro $A$ y radio $\s{EB}$:</p>
+        <div class="calc" data-calc>
+          |\s{AF}| = |\s{EB}| = \f{\r{5}}{2} l
+          \f{\r{5}}{2} ≈ \f{2,236}{2} = 1,118
+        </div>
+        <p>Queda $|\s{AX}| = |\s{AF}| ≈ 1,118 l$, mayor que $l$: $X$ cae fuera de $\s{AB}$ y no puede ser el punto interior.</p>
+      </div>
+      <div class="mb si">
+        <div class="mb-t">✓ Así sí</div>
+        <p>Con centro $E$ y radio $\s{EB}$:</p>
+        <div class="calc" data-calc>
+          |\s{AF}| = |\s{EF}| − |\s{EA}| = |\s{EB}| − |\s{EA}|
+          = \f{\r{5}}{2} l − \f{1}{2} l = \f{\r{5} − 1}{2} l
+        </div>
+        <p>Queda $|\s{AX}| = |\s{AF}| ≈ 0,618 l$, menor que $l$: $X$ está entre $A$ y $B$.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Práctica</h3>
+  <div data-practica="cuad"></div>
+  <div class="sig"><button class="btn" data-go="pot">Seguir: tangente y secante →</button></div>
+</section>
+
+<!-- ================= 3 · TANGENTE Y SECANTE ================= -->
+<section class="tab-content" id="tab-pot">
+  <h2>Construcción con tangente y secante</h2>
+  <p class="lead">La potencia de un punto respecto de una circunferencia da otro modo de dividir un segmento en media y extrema razón.</p>
+
+  <div class="caja">
+    <span class="lbl">Lo que ya sabemos de potencia</span>
+    <p>Si desde un punto $A$ exterior a una circunferencia se trazan una tangente que toca a la circunferencia en $T$ y una secante que la corta en $N$ y en $M$, con $N$ más cerca de $A$, se verifica:</p>
+    <div class="calc" data-calc>
+      \s{AT}^{2} = \s{AM} · \s{AN}
+    </div>
+    <p>Dividimos los dos miembros por $\s{AT} · \s{AN}$ y simplificamos:</p>
+    <div class="calc" data-calc>
+      \f{\s{AM} · \s{AN}}{\s{AT} · \s{AN}} = \f{\s{AT} · \s{AT}}{\s{AT} · \s{AN}}   ⟹   \f{\s{AM}}{\s{AT}} = \f{\s{AT}}{\s{AN}}   \t{(1)}
+    </div>
+    <p>$\s{AT}$ es medio proporcional entre $\s{AM}$ y $\s{AN}$. Si la secante pasa por el centro $O$, $\s{MN}$ es un diámetro; si además ese diámetro es congruente con $\s{AT}$, la secante $\s{AM}$ queda dividida por $N$ en media y extrema razón.</p>
+  </div>
+
+  <div class="figbox" data-fig="f3"></div>
+
+  <div class="caja voz">
+    <span class="lbl">La misma idea que con el cuadrado</span>
+    <p>En las dos construcciones aparece un triángulo rectángulo de catetos $l$ y $\f{l}{2}$: es $EAB$ en el cuadrado y $ATO$ acá. Su hipotenusa mide $\f{\r{5}}{2} l$ y, al quitarle $\f{l}{2}$, queda el segmento mayor. Por eso las dos llegan al mismo punto.</p>
+  </div>
+
+  <h3>La medida</h3>
+  <div class="acc open">
+    <button class="acc-h" aria-expanded="true"><span class="tag">Ejemplo 3</span><span class="acc-t">¿Cuánto mide $\s{AX}$ con esta construcción?</span><span class="chev">▾</span></button>
+    <div class="acc-c">
+      <p style="margin-top:12px">Llamamos $l$ a la medida de $\s{AT}$.</p>
+      <p class="paso-t"><span class="pn">1</span>El radio</p>
+      <div class="calc" data-calc>
+        |\s{OT}| = \f{|\s{AT}|}{2} = \f{l}{2}
+      </div>
+      <p class="paso-t"><span class="pn">2</span>La distancia de $A$ al centro</p>
+      <p>El triángulo $ATO$ es rectángulo en $T$, porque el radio $\s{OT}$ es perpendicular a la tangente. Por el teorema de Pitágoras:</p>
+      <div class="calc" data-calc>
+        |\s{AO}|^{2} = |\s{AT}|^{2} + |\s{OT}|^{2}
+        = l^{2} + \p{\f{l}{2}}^{2}
+        = l^{2} + \f{l^{2}}{4}
+        = \f{4 l^{2}}{4} + \f{l^{2}}{4}
+        = \f{5 l^{2}}{4}
+        |\s{AO}| = \r{\f{5 l^{2}}{4}} = \f{\r{5} · \r{l^{2}}}{\r{4}} = \f{\r{5}}{2} l
+      </div>
+      <p class="paso-t"><span class="pn">3</span>El segmento $\s{AN}$</p>
+      <p>$N$ está entre $A$ y $O$, y $\s{ON}$ es un radio: $|\s{ON}| = |\s{OT}| = \f{l}{2}$.</p>
+      <div class="calc" data-calc>
+        |\s{AN}| = |\s{AO}| − |\s{ON}|
+        = \f{\r{5}}{2} l − \f{1}{2} l
+        = \f{\r{5} − 1}{2} l
+      </div>
+      <p class="paso-t"><span class="pn">4</span>El segmento $\s{AX}$</p>
+      <p>$\s{AX} \cg \s{AN}$ por construcción.</p>
+      <div class="calc fin" data-calc>
+        |\s{AX}| = |\s{AN}| = \f{\r{5} − 1}{2} l ≈ 0,618 l
+      </div>
+      <p>Es la misma medida que dio la construcción con el cuadrado.</p>
+      <p class="nota">En el apunte esta cuenta está hecha sobre la misma figura con otras letras: $B$ en lugar de $T$ y $C$ en lugar de $O$.</p>
+    </div>
+  </div>
+
+  <div class="caja err">
+    <span class="lbl">Error típico</span>
+    <p><b>Tomar el radio igual al segmento.</b> El radio es la mitad de $\s{AT}$; lo que mide lo mismo que $\s{AT}$ es el diámetro. Con $|\s{AT}| = 2$:</p>
+    <div class="malbien">
+      <div class="mb">
+        <div class="mb-t">✗ Así no</div>
+        <p>Con radio $|\s{OT}| = 2$:</p>
+        <div class="calc" data-calc>
+          |\s{AO}|^{2} = |\s{AT}|^{2} + |\s{OT}|^{2} = 2^{2} + 2^{2} = 4 + 4 = 8
+          |\s{AO}| = \r{8} ≈ 2,8284
+          |\s{AX}| = |\s{AN}| = |\s{AO}| − |\s{ON}| ≈ 2,8284 − 2 = 0,8284
+          |\s{XT}| = |\s{AT}| − |\s{AX}| ≈ 2 − 0,8284 = 1,1716
+          \f{\s{AT}}{\s{AX}} ≈ \f{2}{0,8284} ≈ 2,414
+          \f{\s{AX}}{\s{XT}} ≈ \f{0,8284}{1,1716} ≈ 0,707
+        </div>
+        <p>Las razones no coinciden: $X$ no divide a $\s{AT}$ en media y extrema razón.</p>
+      </div>
+      <div class="mb si">
+        <div class="mb-t">✓ Así sí</div>
+        <p>Con radio $|\s{OT}| = \f{2}{2} = 1$:</p>
+        <div class="calc" data-calc>
+          |\s{AO}|^{2} = |\s{AT}|^{2} + |\s{OT}|^{2} = 2^{2} + 1^{2} = 4 + 1 = 5
+          |\s{AO}| = \r{5} ≈ 2,236
+          |\s{AX}| = |\s{AN}| = |\s{AO}| − |\s{ON}| ≈ 2,236 − 1 = 1,236
+          |\s{XT}| = |\s{AT}| − |\s{AX}| ≈ 2 − 1,236 = 0,764
+          \f{\s{AT}}{\s{AX}} ≈ \f{2}{1,236} ≈ 1,618
+          \f{\s{AX}}{\s{XT}} ≈ \f{1,236}{0,764} ≈ 1,618
+        </div>
+        <p>Las dos razones coinciden. ✓</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Práctica</h3>
+  <div data-practica="pot"></div>
+  <div class="sig"><button class="btn" data-go="oro">Seguir: el número de oro →</button></div>
+</section>
+
+<!-- ================= 4 · NÚMERO DE ORO ================= -->
+<section class="tab-content" id="tab-oro">
+  <h2>La proporción áurea</h2>
+  <p class="lead">Las dos construcciones llegan al mismo punto, con $|\s{AX}| = \f{\r{5} − 1}{2} l$. La razón entre el segmento entero y el mayor no depende de $l$: es siempre el mismo número.</p>
+
+  <div class="acc open">
+    <button class="acc-h" aria-expanded="true"><span class="tag">Ejemplo 4</span><span class="acc-t">¿Cuánto vale la razón entre $\s{AB}$ y $\s{AX}$?</span><span class="chev">▾</span></button>
+    <div class="acc-c">
+      <p class="paso-t"><span class="pn">1</span>La razón entre el mayor y el entero</p>
+      <p>Con $|\s{AX}| = \f{\r{5} − 1}{2} l$ y $|\s{AB}| = l$, la $l$ se simplifica:</p>
+      <div class="calc" data-calc>
+        \f{\s{AX}}{\s{AB}} = \f{\f{\r{5} − 1}{2} l}{l} = \f{\r{5} − 1}{2}
+      </div>
+      <p class="paso-t"><span class="pn">2</span>Invertimos y racionalizamos</p>
+      <div class="calc" data-calc>
+        \f{\s{AB}}{\s{AX}} = \f{2}{\r{5} − 1}
+        = \f{2}{\r{5} − 1} · \f{\r{5} + 1}{\r{5} + 1}
+        = \f{2 · (\r{5} + 1)}{(\r{5})^{2} − 1^{2}}
+        = \f{2 · (\r{5} + 1)}{5 − 1}
+        = \f{2 · (\r{5} + 1)}{4}
+        = \f{\r{5} + 1}{2}
+      </div>
+      <p>En el último paso simplificamos por 2. En decimales, con $\r{5} ≈ 2,236$:</p>
+      <div class="calc" data-calc>
+        \f{\r{5} + 1}{2} ≈ \f{2,236 + 1}{2} = \f{3,236}{2} = 1,618
+      </div>
+    </div>
+  </div>
+
+  <div class="caja">
+    <span class="lbl">Número de oro</span>
+    <div class="calc" data-calc>
+      φ = \f{1 + \r{5}}{2} ≈ 1,618
+    </div>
+    <p>$X$ divide a $\s{AB}$ en media y extrema razón exactamente cuando</p>
+    <div class="calc" data-calc>
+      \f{\s{AB}}{\s{AX}} = \f{\s{AX}}{\s{XB}} = φ
+    </div>
+    <p>Esa razón se llama <b>proporción áurea</b>, el número $φ$ es el <b>número de oro</b> y el punto $X$ determina la <b>sección áurea</b> de $\s{AB}$. El Ejemplo 4 muestra que el punto construido da esa razón; el Ejemplo 5, que no puede dar otra.</p>
+  </div>
+
+  <div class="acc">
+    <button class="acc-h" aria-expanded="false"><span class="tag">Ejemplo 5</span><span class="acc-t">¿Se puede llegar a $φ$ sin pasar por la construcción?</span><span class="chev">▾</span></button>
+    <div class="acc-c">
+      <p style="margin-top:12px">Sí, alcanza con la definición. Llamamos $r$ a la razón común: $r = \f{\s{AB}}{\s{AX}} = \f{\s{AX}}{\s{XB}}$.</p>
+      <p class="paso-t"><span class="pn">1</span>Una ecuación para $r$</p>
+      <p>Partimos de que el entero es la suma de las partes y dividimos todo por $|\s{AX}|$. La razón $\f{\s{XB}}{\s{AX}}$ es la inversa de $r$.</p>
+      <div class="calc" data-calc>
+        |\s{AB}| = |\s{AX}| + |\s{XB}|
+        \f{|\s{AB}|}{|\s{AX}|} = \f{|\s{AX}|}{|\s{AX}|} + \f{|\s{XB}|}{|\s{AX}|}
+        r = 1 + \f{1}{r}
+      </div>
+      <p class="paso-t"><span class="pn">2</span>La llevamos a una cuadrática</p>
+      <p>Multiplicamos los dos miembros por $r$ y pasamos todo al primer miembro.</p>
+      <div class="calc" data-calc>
+        r · r = 1 · r + \f{1}{r} · r
+        r^{2} = r + 1
+        r^{2} − r − 1 = 0
+      </div>
+      <p class="paso-t"><span class="pn">3</span>Resolvemos</p>
+      <p>Con $a = 1$, $b = −1$ y $c = −1$ en la fórmula resolvente:</p>
+      <div class="calc" data-calc>
+        r = \f{−(−1) ± \r{(−1)^{2} − 4 · 1 · (−1)}}{2 · 1}
+        = \f{1 ± \r{1 + 4}}{2}
+        = \f{1 ± \r{5}}{2}
+      </div>
+      <p class="paso-t"><span class="pn">4</span>Elegimos la raíz</p>
+      <div class="calc" data-calc>
+        \f{1 − \r{5}}{2} ≈ \f{1 − 2,236}{2} = \f{−1,236}{2} = −0,618
+      </div>
+      <p>Esa raíz es negativa y una razón entre medidas es positiva. Queda la otra:</p>
+      <div class="calc fin" data-calc>
+        r = \f{1 + \r{5}}{2} = φ
+      </div>
+    </div>
+  </div>
+
+  <div class="caja voz">
+    <span class="lbl">Tres veces la misma razón</span>
+    <p>Del Ejemplo 5 sale que $φ^{2} = φ + 1$. Y la inversa de $φ$ es $φ − 1$, porque es la razón del paso 1 del Ejemplo 4:</p>
+    <div class="calc" data-calc>
+      φ − 1 = \f{1 + \r{5}}{2} − \f{2}{2} = \f{1 + \r{5} − 2}{2} = \f{\r{5} − 1}{2} = \f{\s{AX}}{\s{AB}} = \f{1}{φ}
+    </div>
+    <p>Entonces $|\s{AX}| = \f{1}{φ} l ≈ 0,618 l$ y $|\s{AX′}| = \f{\r{5} + 1}{2} l = φ l ≈ 1,618 l$. Ordenados de mayor a menor, cada segmento es $φ$ veces el siguiente:</p>
+    <div class="calc" data-calc>
+      \f{\s{AX′}}{\s{AB}} = \f{\s{AB}}{\s{AX}} = \f{\s{AX}}{\s{XB}} = φ
+    </div>
+  </div>
+
+  <h3>Explorador: la misma proporción en un rectángulo</h3>
+  <p class="txt">La proporción áurea también se puede leer en un rectángulo. Tomamos uno de base $\s{AB}$ y altura 1, y marcamos $X$ sobre la base con $|\s{AX}| = 1$. El rectángulo queda dividido en dos partes: un cuadrado de lado $\s{AX}$ y un rectángulo más chico, de lados $\s{AX}$ y $\s{XB}$.</p>
+  <p class="txt">El rectángulo chico tiene la misma forma que el entero cuando sus lados guardan la misma razón, es decir, cuando $\f{\s{AB}}{\s{AX}} = \f{\s{AX}}{\s{XB}}$. Es la condición de media y extrema razón. Mové la base hasta que las dos razones coincidan.</p>
+  <div class="labbox" id="lab2">
+    <div class="figrow">
+      <div>
+        <div class="svg-host" id="lab2-svg"></div>
+        <div class="leg">
+          <span><i class="sw" style="background:rgba(43,90,147,.2);border-color:#2B5A93"></i><span>cuadrado de lado $\s{AX}$</span></span>
+          <span><i class="sw" style="background:rgba(199,122,64,.25);border-color:#C77A40"></i><span>rectángulo chico, de lados $\s{AX}$ y $\s{XB}$</span></span>
+        </div>
+        <div class="ctl">
+          <label for="lab2-b" id="lab2-lbl"></label>
+          <input type="range" id="lab2-b" min="1.2" max="2" step="0.01" value="1.5">
+          <div class="ctl-b">
+            <button class="btn sec" id="lab2-ex" disabled>Mostrar la base exacta</button>
+            <button class="btn sec" id="lab2-mas" aria-pressed="false">Repetir la división en el rectángulo chico</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <div id="lab2-panel"></div>
+        <div class="ver" id="lab2-ver" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja">
+    <span class="lbl">Rectángulo áureo</span>
+    <p>Un rectángulo es áureo cuando la razón entre su lado mayor y su lado menor es $φ$. Si se lo divide en un cuadrado y un rectángulo más chico, como en el explorador, el rectángulo chico también es áureo.</p>
+  </div>
+
+  <div class="caja err">
+    <span class="lbl">Error típico</span>
+    <p><b>Confundir $φ$ con su inversa.</b> Multiplicar por $φ$ agranda; para obtener el segmento mayor a partir del entero hay que achicar. Con $|\s{AB}| = 10$:</p>
+    <div class="malbien">
+      <div class="mb">
+        <div class="mb-t">✗ Así no</div>
+        <div class="calc" data-calc>
+          |\s{AX}| = φ · |\s{AB}| ≈ 1,618 · 10 = 16,18
+        </div>
+        <p>Da más que el segmento entero, que mide 10: $X$ no estaría sobre $\s{AB}$. Esa medida es la del segmento exterior $\s{AX′}$.</p>
+      </div>
+      <div class="mb si">
+        <div class="mb-t">✓ Así sí</div>
+        <div class="calc" data-calc>
+          |\s{AX}| = \f{1}{φ} · |\s{AB}| = (φ − 1) · |\s{AB}|
+          ≈ (1,618 − 1) · 10 = 0,618 · 10 = 6,18
+        </div>
+        <p>Da menos que 10 y más que la mitad, como corresponde al segmento mayor.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Práctica</h3>
+  <div data-practica="oro"></div>
+  <div class="sig"><button class="btn" data-go="res">Seguir: resumen →</button></div>
+</section>
+
+<!-- ================= RESUMEN ================= -->
+<section class="tab-content" id="tab-res">
+  <h2>Resumen</h2>
+  <p class="lead">Lo que tiene que quedar de la clase, en dos tablas.</p>
+
+  <h3>Conceptos y fórmulas</h3>
+  <div class="scrollx">
+    <table class="tbl">
+      <thead><tr><th>Concepto</th><th>Fórmula</th><th>Qué dice</th></tr></thead>
+      <tbody>
+        <tr><td>Media y extrema razón</td><td>$\f{\s{AB}}{\s{AX}} = \f{\s{AX}}{\s{XB}}$</td><td>El segmento mayor es medio proporcional entre el entero y el menor.</td></tr>
+        <tr><td>Lectura con áreas</td><td>$\s{AX}^{2} = \s{AB} · \s{XB}$</td><td>El cuadrado sobre el mayor tiene la misma área que el rectángulo del entero y el menor.</td></tr>
+        <tr><td>Punto interior</td><td>$|\s{AX}| = \f{\r{5} − 1}{2} l ≈ 0,618 l$</td><td>Hipotenusa del triángulo de catetos $l$ y $\f{l}{2}$, menos $\f{l}{2}$.</td></tr>
+        <tr><td>Punto exterior</td><td>$|\s{AX′}| = \f{\r{5} + 1}{2} l ≈ 1,618 l$</td><td>La misma hipotenusa, más $\f{l}{2}$. $X′$ queda del lado de $A$.</td></tr>
+        <tr><td>Tangente y secante</td><td>$\s{AT}^{2} = \s{AM} · \s{AN}$</td><td>Si la secante pasa por el centro y el diámetro $\s{MN}$ es congruente con $\s{AT}$, $N$ divide a $\s{AM}$ en media y extrema razón.</td></tr>
+        <tr><td>Número de oro</td><td>$φ = \f{1 + \r{5}}{2} ≈ 1,618$</td><td>Es la razón entre el segmento entero y el mayor, y entre el mayor y el menor.</td></tr>
+        <tr><td>Dos igualdades de $φ$</td><td>$φ^{2} = φ + 1$ &nbsp;y&nbsp; $\f{1}{φ} = φ − 1$</td><td>Elevar al cuadrado es sumar 1; invertir es restar 1.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Errores frecuentes</h3>
+  <div class="scrollx">
+    <table class="tbl">
+      <thead><tr><th>Error</th><th>Cómo evitarlo</th></tr></thead>
+      <tbody>
+        <tr><td>Tomar el punto medio</td><td>Controlar la condición $|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|$: las partes son desiguales.</td></tr>
+        <tr><td>Restar en el punto exterior</td><td>Mirar el orden de los puntos: $A$ está entre $X′$ y $B$, así que $|\s{X′B}| = |\s{X′A}| + |\s{AB}|$.</td></tr>
+        <tr><td>Hacer centro en $A$</td><td>El compás lleva $\s{EB}$ con centro en $E$, el punto medio del lado.</td></tr>
+        <tr><td>Radio igual al segmento</td><td>El radio es $\f{l}{2}$: lo que mide $l$ es el diámetro.</td></tr>
+        <tr><td>Confundir $φ$ con su inversa</td><td>El segmento mayor es menor que el entero: se multiplica por $\f{1}{φ} ≈ 0,618$, no por $φ$.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fin-row">
+    <span id="prog2" class="st-n"></span>
+    <button class="btn sec" id="reset">Borrar mi progreso</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-quote">"La matemática no exige genios, exige constancia."</div>
+    <div class="autor">Prof. Gastón Ayala</div>
+  </div>
+</footer>
+<script>
+(function () {
+'use strict';
+var S = String.raw;
+var $ = function (q, r) { return (r || document).querySelector(q); };
+var $$ = function (q, r) { return Array.prototype.slice.call((r || document).querySelectorAll(q)); };
+
+/* =====================================================================
+   1. MATEMÁTICA SIN KATEX  (minilenguaje: \f \r \s \p \o \t \i \cg ^{} _{})
+   ===================================================================== */
+function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+var REL = '=≠<>≤≥≈⟹⟺→∈∉≅⊥';
+var BIN = '+−·×±';
+var LET = /[A-Za-zα-ωφ]/;
+var RAD = '<svg viewBox="0 0 10 24" preserveAspectRatio="none" aria-hidden="true"><path d="M0.6 14.5 L2.8 14.5 L5.2 22.4 L9.4 1.2" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>';
+function PAR(d) { return '<span class="par-w"><svg viewBox="0 0 10 100" preserveAspectRatio="none" aria-hidden="true"><path d="' + d + '" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" vector-effect="non-scaling-stroke"/></svg></span>'; }
+
+function readArg(s, i, src) {
+  if (s[i] !== '{') throw new Error('falta { en: ' + src);
+  var d = 0;
+  for (var j = i; j < s.length; j++) {
+    var c = s[j];
+    if (c === '\\' && (s[j + 1] === '{' || s[j + 1] === '}')) { j++; continue; }
+    if (c === '{') d++;
+    else if (c === '}') { d--; if (d === 0) return [s.slice(i + 1, j), j + 1]; }
+  }
+  throw new Error('llave sin cerrar en: ' + src);
+}
+
+function render(src) {
+  var s = src.replace(/-/g, '−');
+  var out = [], prev = 'ini', sp = false, i = 0;
+  function put(h, k) { if (sp && out.length) out.push({ h: ' ', k: 'sp' }); sp = false; out.push({ h: h, k: k }); prev = k; }
+  function op(h) { sp = false; out.push({ h: h, k: 'op' }); prev = 'op'; }
+  function last() { for (var n = out.length - 1; n >= 0; n--) if (out[n].k !== 'sp') return out[n].k === 'gap' ? null : out[n]; return null; }
+  function attach(h, isSup) {
+    var a = (sp ? null : last());
+    if (a && /^(id|num|close|box|par|bar|ch)$/.test(a.k)) {
+      if (a.k === 'par' && isSup) { a.h += h; a.cls = 'at pt'; }
+      else { a.h += h; a.cls = a.cls || 'at'; }
+    } else put(h, 'id');
+  }
+  var unaryCtx = function () { return /^(ini|op|open|punct|tx)$/.test(prev); };
+  while (i < s.length) {
+    var c = s[i];
+    if (c === '\\') {
+      if (s[i + 1] === '{' || s[i + 1] === '}') { put(s[i + 1], 'ch'); i += 2; continue; }
+      var j = i + 1; while (j < s.length && /[a-z]/i.test(s[j])) j++;
+      var name = s.slice(i + 1, j); i = j;
+      var A = function () { var r = readArg(s, i, src); i = r[1]; return r[0]; };
+      if (name === 'f') { var a = A(), b = A(); put('<span class="fr"><span class="fn">' + render(a) + '</span><span class="fd">' + render(b) + '</span></span>', 'box'); }
+      else if (name === 'r') put('<span class="sq">' + RAD + '<span class="sq-b">' + render(A()) + '</span></span>', 'box');
+      else if (name === 's') put('<span class="sg">' + render(A()) + '</span>', 'box');
+      else if (name === 'p') put('<span class="par">' + PAR('M8.5 1.5 C2 22 2 78 8.5 98.5') + '<span class="par-c">' + render(A()) + '</span>' + PAR('M1.5 1.5 C8 22 8 78 1.5 98.5') + '</span>', 'par');
+      else if (name === 'o') put('<span class="ro">' + esc(A()) + '</span>', 'id');
+      else if (name === 'i') put('<i>' + esc(A()) + '</i>', 'id');
+      else if (name === 't') put('<span class="tx">' + esc(A()) + '</span>', 'tx');
+      else if (name === 'cg') op('<wbr><span class="os">=<sub><i>C</i></sub></span>\u2060');
+      else throw new Error('comando desconocido \\' + name + ' en: ' + src);
+      continue;
+    }
+    if (c === ' ') {
+      var k = i; while (s[k] === ' ') k++;
+      if (k - i >= 2) { out.push({ h: '', k: 'gap' }); prev = 'ini'; sp = false; }
+      else if (!/^(ini|op|punct|open)$/.test(prev)) sp = true;
+      i = k; continue;
+    }
+    if (c === '^' || c === '_') {
+      var arg; if (s[i + 1] === '{') { var r2 = readArg(s, i + 1, src); arg = r2[0]; i = r2[1]; } else { arg = s[i + 1]; i += 2; }
+      attach(c === '^' ? '<sup>' + render(arg) + '</sup>' : '<sub>' + render(arg) + '</sub>', c === '^'); continue;
+    }
+    if (c === '′') { attach('′', false); i++; continue; }
+    if (LET.test(c)) {
+      var m = i; while (m < s.length && (LET.test(s[m]) || s[m] === '′')) m++;
+      var w = s.slice(i, m);
+      if (w.indexOf('′') >= 0) { put(w.replace(/[^′]+/g, function (x) { return '<i>' + x + '</i>'; }), 'id'); out[out.length - 1].cls = 'at'; }
+      else put('<i>' + w + '</i>', 'id');
+      i = m; continue;
+    }
+    if (/\d/.test(c)) { var mm = /^\d+(,\d+)?/.exec(s.slice(i))[0]; put(mm, 'num'); i += mm.length; continue; }
+    if (REL.indexOf(c) >= 0) { op('<wbr><span class="os">' + esc(c) + '</span>\u2060'); i++; continue; }
+    if (BIN.indexOf(c) >= 0) {
+      if (c !== '·' && c !== '×' && unaryCtx()) { put('<span class="ou">' + c + '</span>', 'op'); }
+      else op('<wbr><span class="ob">' + c + '</span>\u2060');
+      i++; continue;
+    }
+    if (c === '(' || c === '[') { put(c, 'open'); i++; continue; }
+    if (c === ')' || c === ']') { sp = false; put(c, 'close'); i++; continue; }
+    if (c === ',') { sp = false; out.push({ h: '<span class="pc">,</span>', k: 'punct' }); prev = 'punct'; i++; continue; }
+    if (c === ';') { sp = false; out.push({ h: '<span class="psc">;</span>', k: 'punct' }); prev = 'punct'; i++; continue; }
+    if (c === '|') {
+      var e2 = s.indexOf('|', i + 1);
+      if (e2 < 0) { put('|', 'bar'); i++; }
+      else { put('|' + render(s.slice(i + 1, e2)) + '|', 'bar'); out[out.length - 1].cls = 'at'; i = e2 + 1; }
+      continue;
+    }
+    put(esc(c), 'ch'); i++;
+  }
+  var hasGap = out.some(function (o) { return o.k === 'gap'; }), res = '', cur = '';
+  out.forEach(function (o) {
+    if (o.k === 'gap') { res += '<span class="grp">' + cur + '</span><span class="gap"></span> '; cur = ''; }
+    else cur += o.cls ? '<span class="' + o.cls + '">' + o.h + '</span>' : o.h;
+  });
+  return hasGap ? res + '<span class="grp">' + cur + '</span>' : cur;
+}
+function M(src) { return '<span class="mi">' + render(src) + '</span>'; }
+/* R: HTML de autor con $…$ ; Rtext: texto plano con $…$ */
+function R(t) { return t.replace(/\$([^$]+)\$/g, function (_, a) { return M(a); }); }
+function Rtext(t) { return t.split('$').map(function (p, n) { return n % 2 ? M(p) : esc(p); }).join(''); }
+function calc(lines, cls) {
+  if (typeof lines === 'string') lines = [lines];
+  return '<div class="calc' + (lines.length === 1 ? ' one' : '') + (cls ? ' ' + cls : '') + '">' + lines.map(function (l) {
+    return '<div class="ln' + (/^[=≈]/.test(l) ? ' c' : '') + '">' + render(l) + '</div>';
+  }).join('') + '</div>';
+}
+function renderStatic(root) {
+  $$('[data-calc]', root).forEach(function (el) {
+    var lines = el.textContent.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
+    el.removeAttribute('data-calc');
+    if (lines.length === 1) el.classList.add('one');
+    el.innerHTML = lines.map(function (l) { return '<div class="ln' + (/^[=≈]/.test(l) ? ' c' : '') + '">' + render(l) + '</div>'; }).join('');
+  });
+  var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n, list = [];
+  while ((n = w.nextNode())) if (n.nodeValue.indexOf('$') >= 0 && !n.parentNode.closest('script,style,svg,.calc')) list.push(n);
+  list.forEach(function (node) {
+    var t = document.createElement('template'); t.innerHTML = Rtext(node.nodeValue);
+    node.parentNode.replaceChild(t.content, node);
+  });
+}
+
+/* =====================================================================
+   2. GEOMETRÍA (una sola fuente para las figuras y el autotest)
+   ===================================================================== */
+var R5 = Math.sqrt(5), PHI = (1 + R5) / 2;
+var GEO = {
+  // cuadrado sobre AB, con l = 2
+  cu: { A: [0, 0], B: [2, 0], C: [2, -2], D: [0, -2], E: [0, -1],
+        F: [0, R5 - 1], G: [R5 - 1, R5 - 1], X: [R5 - 1, 0], L: [R5 - 1, -2],
+        F2: [0, -1 - R5], G2: [-1 - R5, -1 - R5], X2: [-1 - R5, 0], L2: [-1 - R5, -2] },
+  // tangente y secante, con |AT| = 2
+  ts: (function () { var u = [2 / R5, 1 / R5];
+        return { A: [0, 0], T: [2, 0], O: [2, 1], N: [2 - u[0], 1 - u[1]], M: [2 + u[0], 1 + u[1]], X: [R5 - 1, 0] }; })()
+};
+function dist(p, q) { return Math.hypot(p[0] - q[0], p[1] - q[1]); }
+
+/* ---------- utilidades SVG ---------- */
+var C = { ink: '#20201C', blue: '#2B5A93', amber: '#C77A40', green: '#45785A', aux: '#8A857A', paper: '#FFFDF8' };
+var FILL = { blue: 'rgba(43,90,147,.16)', amber: 'rgba(199,122,64,.24)', green: 'rgba(69,120,90,.26)' };
+function View(w, h, sc, ox, oy) {
+  var v = { w: w, h: h, sc: sc, ox: ox, oy: oy };
+  v.x = function (p) { return +(ox + p[0] * sc).toFixed(2); };
+  v.y = function (p) { return +(oy - p[1] * sc).toFixed(2); };
+  return v;
+}
+function svgWrap(v, inner, label, id) {
+  return '<svg class="geo" viewBox="0 0 ' + v.w + ' ' + v.h + '" role="img" aria-label="' + label + '">' +
+    '<defs><pattern id="h-' + id + '" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="7" height="7" fill="#EFEADF"/><line x1="0" y1="0" x2="0" y2="7" stroke="#8A857A" stroke-width="1.3"/></pattern>' +
+    '<marker id="ar-' + id + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 1 L9 5 L0 9 z" fill="#8A857A"/></marker></defs>' + inner + '</svg>';
+}
+function ln(v, a, b, col, wd, extra) { return '<line x1="' + v.x(a) + '" y1="' + v.y(a) + '" x2="' + v.x(b) + '" y2="' + v.y(b) + '" stroke="' + col + '" stroke-width="' + (wd || 1.6) + '" stroke-linecap="round" ' + (extra || '') + '/>'; }
+function pg(v, pts, fill, col, wd, extra) { return '<polygon points="' + pts.map(function (p) { return v.x(p) + ',' + v.y(p); }).join(' ') + '" fill="' + (fill || 'none') + '" stroke="' + (col || 'none') + '" stroke-width="' + (wd || 1.6) + '" stroke-linejoin="round" ' + (extra || '') + '/>'; }
+function dot(v, p, col, r) { return '<circle cx="' + v.x(p) + '" cy="' + v.y(p) + '" r="' + (r || 3.8) + '" fill="' + (col || C.ink) + '"/>'; }
+function lab(v, p, t, dx, dy, col) { return '<text class="pl" x="' + (v.x(p) + dx) + '" y="' + (v.y(p) + dy) + '" text-anchor="middle" fill="' + (col || C.ink) + '">' + t + '</text>'; }
+function arc(v, c, r, a0, a1, col, extra) {
+  var pts = [], n = 48;
+  for (var k = 0; k <= n; k++) { var a = (a0 + (a1 - a0) * k / n) * Math.PI / 180; pts.push(v.x([c[0] + r * Math.cos(a), 0]) + ',' + v.y([0, c[1] + r * Math.sin(a)])); }
+  return '<polyline points="' + pts.join(' ') + '" fill="none" stroke="' + col + '" stroke-width="1.5" ' + (extra || 'stroke-dasharray="5 4"') + '/>';
+}
+function rightAngle(v, p, d1, d2) { var s = 11 / v.sc;
+  var a = [p[0] + d1[0] * s, p[1] + d1[1] * s], b = [a[0] + d2[0] * s, a[1] + d2[1] * s], c = [p[0] + d2[0] * s, p[1] + d2[1] * s];
+  return '<polyline points="' + [a, b, c].map(function (q) { return v.x(q) + ',' + v.y(q); }).join(' ') + '" fill="none" stroke="' + C.aux + '" stroke-width="1.2"/>'; }
+var DASH = 'stroke-dasharray="5 4"';
+
+/* ---------- Figura 1: punto interior ---------- */
+function drawF1(st) {
+  var g = GEO.cu, v = View(440, 366, 84, 136, 160), id = 'f1', o = '';
+  if (st === 4) o += pg(v, [g.D, g.F, g.G, g.L], FILL.amber);
+  if (st === 5) { o += pg(v, [g.A, g.F, g.G, g.X], FILL.amber) + pg(v, [g.A, g.X, g.L, g.D], 'rgba(150,110,120,.28)') + pg(v, [g.X, g.B, g.C, g.L], FILL.blue); }
+  if (st === 6) { o += pg(v, [g.A, g.X, g.L, g.D], 'url(#h-' + id + ')') + pg(v, [g.A, g.F, g.G, g.X], FILL.green) + pg(v, [g.X, g.B, g.C, g.L], FILL.green); }
+  if (st === 3) o += pg(v, [g.A, g.F, g.G, g.X], FILL.green);
+  o += pg(v, [g.A, g.B, g.C, g.D], 'none', C.blue, 1.7);
+  if (st >= 2) o += ln(v, g.E, [0, 1.62], C.aux, 1.3, DASH + ' marker-end="url(#ar-' + id + ')"');
+  if (st >= 4) o += ln(v, g.X, g.L, C.aux, 1.4, DASH);
+  if (st >= 3) o += pg(v, [g.A, g.F, g.G, g.X], 'none', C.green, 2);
+  if (st === 4 || st === 5) o += pg(v, [g.D, g.F, g.G, g.L], 'none', C.amber, 2.4);
+  if (st === 5) o += pg(v, [g.A, g.B, g.C, g.D], 'none', C.blue, 2.6);
+  if (st >= 1) o += ln(v, g.E, g.B, C.amber, st <= 2 || st === 5 ? 2.4 : 1.5);
+  if (st === 1 || st === 5) o += rightAngle(v, g.A, [1, 0], [0, -1]);
+  if (st === 5) o += pg(v, [g.E, g.A, g.B], 'none', C.amber, 2.6);
+  if (st >= 2) o += arc(v, g.E, R5, Math.atan2(1, 2) * 180 / Math.PI, 90, C.amber);
+  if (st === 2) o += ln(v, g.E, g.F, C.amber, 2.6);
+  o += ln(v, g.A, g.B, C.ink, 2.8);
+  o += dot(v, g.A) + dot(v, g.B) + lab(v, g.A, 'A', -14, 6) + lab(v, g.B, 'B', 15, 6) + lab(v, g.D, 'D', -14, 8) + lab(v, g.C, 'C', 15, 8);
+  if (st >= 1) o += dot(v, g.E, C.amber) + lab(v, g.E, 'E', -14, 6);
+  if (st >= 2) o += dot(v, g.F, C.amber) + lab(v, g.F, 'F', -14, 6);
+  if (st >= 3) o += lab(v, g.G, 'G', 13, -6) + dot(v, g.X, C.green, 5) + lab(v, g.X, 'X', -13, 20, C.green);
+  if (st >= 4) o += dot(v, g.L, C.aux) + lab(v, g.L, 'L', 0, 21);
+  return svgWrap(v, o, 'Construcción del punto interior con el cuadrado', id);
+}
+/* ---------- Figura 2: punto exterior ---------- */
+function drawF2(st) {
+  var g = GEO.cu, v = View(440, 286, 62, 246, 34), id = 'f2', o = '';
+  if (st === 2) o += pg(v, [g.L2, g.D, g.F2, g.G2], FILL.amber) + pg(v, [g.A, g.B, g.C, g.D], FILL.blue);
+  if (st === 3) o += pg(v, [g.L2, g.D, g.F2, g.G2], FILL.amber) + pg(v, [g.A, g.B, g.C, g.D], FILL.blue) + pg(v, [g.X2, g.A, g.D, g.L2], 'url(#h-' + id + ')');
+  if (st === 1) o += pg(v, [g.A, g.F2, g.G2, g.X2], FILL.green);
+  o += pg(v, [g.A, g.B, g.C, g.D], 'none', C.blue, 1.7);
+  o += ln(v, g.E, [0, -3.62], C.aux, 1.3, DASH + ' marker-end="url(#ar-' + id + ')"');
+  o += ln(v, g.E, g.B, C.amber, st === 0 ? 2.4 : 1.5);
+  o += arc(v, g.E, R5, Math.atan2(1, 2) * 180 / Math.PI, -90, C.amber);
+  if (st === 0) o += ln(v, g.E, g.F2, C.amber, 2.6);
+  if (st >= 1) o += pg(v, [g.A, g.F2, g.G2, g.X2], 'none', C.green, st === 3 ? 2.6 : 2);
+  if (st >= 2) o += ln(v, g.L2, g.D, C.aux, 1.4, DASH);
+  if (st === 2) o += pg(v, [g.L2, g.D, g.F2, g.G2], 'none', C.amber, 2.4);
+  if (st === 3) o += pg(v, [g.X2, g.B, g.C, g.L2], 'none', C.blue, 2.6);
+  o += ln(v, g.A, g.B, C.ink, 2.8);
+  o += dot(v, g.A) + dot(v, g.B) + lab(v, g.A, 'A', 12, -9) + lab(v, g.B, 'B', 14, -7) + lab(v, g.D, 'D', 13, -8) + lab(v, g.C, 'C', 14, 16);
+  o += dot(v, g.E, C.amber) + lab(v, g.E, 'E', -13, 6) + dot(v, g.F2, C.amber) + lab(v, g.F2, 'F′', 17, 5);
+  if (st >= 1) o += dot(v, g.X2, C.green, 5) + lab(v, g.X2, 'X′', -4, -10, C.green) + lab(v, g.G2, 'G′', -16, 8);
+  if (st >= 2) o += dot(v, g.L2, C.aux) + lab(v, g.L2, 'L′', -16, 6);
+  return svgWrap(v, o, 'Construcción del punto exterior con el cuadrado', id);
+}
+/* ---------- Figura 3: tangente y secante ---------- */
+function drawF3(st) {
+  var g = GEO.ts, v = View(440, 300, 116, 44, 258), id = 'f3', o = '';
+  var far = [3.2, 1.6];
+  o += '<circle cx="' + v.x(g.O) + '" cy="' + v.y(g.O) + '" r="' + v.sc + '" fill="rgba(43,90,147,.05)" stroke="' + C.blue + '" stroke-width="1.7"/>';
+  o += ln(v, g.T, [2, 2.18], C.aux, 1.2, DASH) + ln(v, g.O, g.T, C.blue, st === 0 ? 2.4 : 1.5) + rightAngle(v, g.T, [-1, 0], [0, 1]);
+  if (st >= 1) o += ln(v, g.A, far, C.aux, 1.3, DASH + ' marker-end="url(#ar-' + id + ')"');
+  if (st === 1) o += ln(v, g.N, g.M, C.blue, 2.8);
+  if (st === 3) o += ln(v, g.A, g.M, C.blue, 2.6);
+  if (st === 4) o += ln(v, g.A, g.N, C.blue, 3) + ln(v, g.N, g.M, C.amber, 3);
+  if (st >= 2) o += arc(v, g.A, R5 - 1, Math.atan2(1, 2) * 180 / Math.PI, 0, C.amber);
+  o += ln(v, g.A, g.T, st === 3 ? C.amber : C.ink, st === 3 ? 3.4 : 2.8);
+  if (st === 5) o += ln(v, g.A, g.X, C.blue, 3.6) + ln(v, g.X, g.T, C.amber, 3.6);
+  o += dot(v, g.A) + dot(v, g.T) + lab(v, g.A, 'A', -4, 22) + lab(v, g.T, 'T', 4, 22) + dot(v, g.O, C.blue) + lab(v, g.O, 'O', 15, 5);
+  if (st >= 1) o += dot(v, g.N, C.blue) + lab(v, g.N, 'N', -9, -11) + dot(v, g.M, C.blue) + lab(v, g.M, 'M', 13, 19);
+  if (st >= 2) o += dot(v, g.X, C.green, 5) + lab(v, g.X, 'X', 0, 23, C.green);
+  return svgWrap(v, o, 'Construcción con tangente y secante', id);
+}
+
+/* =====================================================================
+   3. PASOS DE LAS FIGURAS (una lista por figura: dibuja y explica)
+   ===================================================================== */
+var PASOS = {
+  f1: { draw: drawF1, pasos: [
+    { g: 'Construcción', t: S`El cuadrado sobre $\s{AB}$`,
+      ten: S`El segmento $\s{AB}$ que queremos dividir.`,
+      hac: S`Construimos el cuadrado $ABCD$ de lado $\s{AB}$.`,
+      obt: S`$\s{AD} \cg \s{AB}$ y el ángulo en $A$ es recto.` },
+    { g: 'Construcción', t: S`El punto medio $E$`,
+      ten: S`El cuadrado $ABCD$.`,
+      hac: S`Marcamos $E$, punto medio de $\s{AD}$, y trazamos $\s{EB}$.`,
+      obt: S`$\s{EA} \cg \s{ED}$, y el triángulo $EAB$ es rectángulo en $A$.` },
+    { g: 'Construcción', t: S`Llevamos $\s{EB}$ sobre la semirrecta $EA$`,
+      ten: S`El segmento $\s{EB}$ y la semirrecta de origen $E$ que pasa por $A$.`,
+      hac: S`Con centro $E$ y radio $\s{EB}$ cortamos esa semirrecta en $F$.`,
+      obt: S`$\s{EF} \cg \s{EB}$. $A$ queda entre $E$ y $F$, porque la hipotenusa $\s{EB}$ es mayor que el cateto $\s{EA}$.` },
+    { g: 'Construcción', t: S`El cuadrado $AFGX$`,
+      ten: S`El segmento $\s{AF}$.`,
+      hac: S`Construimos el cuadrado $AFGX$, con $X$ sobre la semirrecta $AB$.`,
+      obt: S`$\s{AX} \cg \s{AF}$. $X$ es el punto pedido; falta justificarlo.`,
+      body: S`<p class="nota">$X$ cae entre $A$ y $B$: por la desigualdad triangular en $EAB$, $|\s{EB}| < |\s{EA}| + |\s{AB}|$, y entonces $|\s{AF}| = |\s{EB}| − |\s{EA}| < |\s{AB}|$.</p>` },
+    { g: 'Justificación', t: S`El rectángulo $DFGL$`,
+      ten: S`El cuadrado $AFGX$.`,
+      hac: S`Prolongamos $\s{GX}$ hasta cortar a $\s{DC}$ en $L$ y escribimos el área del rectángulo $DFGL$.`,
+      obt: S`Área de $DFGL$ $= |\s{DF}| · |\s{AF}|$ &nbsp;(1)`,
+      lines: [S`\t{área de} DFGL = |\s{DF}| · |\s{FG}|`, S`= |\s{DF}| · |\s{AF}|   \t{porque} \s{FG} \cg \s{AF}`] },
+    { g: 'Justificación', t: S`Diferencia de cuadrados y Pitágoras`,
+      ten: S`(1), $\s{EF} \cg \s{EB}$ y $\s{ED} \cg \s{EA}$.`,
+      hac: S`Escribimos $\s{DF}$ y $\s{AF}$ a partir de $E$ y multiplicamos.`,
+      obt: S`Área del rectángulo $DFGL$ = área del cuadrado $ABCD$ &nbsp;(2)`,
+      lines: [S`|\s{DF}| = |\s{EF}| + |\s{ED}| = |\s{EF}| + |\s{EA}|`, S`|\s{AF}| = |\s{EF}| − |\s{EA}|`,
+        S`|\s{DF}| · |\s{AF}| = (|\s{EF}| + |\s{EA}|) · (|\s{EF}| − |\s{EA}|)`,
+        S`= |\s{EF}|^{2} − |\s{EA}|^{2}`,
+        S`= |\s{EB}|^{2} − |\s{EA}|^{2}   \t{porque} \s{EF} \cg \s{EB}`,
+        S`= |\s{AB}|^{2} + |\s{EA}|^{2} − |\s{EA}|^{2}   \t{por Pitágoras en} EAB`,
+        S`= |\s{AB}|^{2}`] },
+    { g: 'Justificación', t: S`Restamos el rectángulo común`,
+      ten: S`(2). El rectángulo $DFGL$ y el cuadrado $ABCD$ comparten el rectángulo $AXLD$.`,
+      hac: S`Restamos el área de $AXLD$ a los dos miembros de (2).`,
+      obt: S`$|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|$: $X$ divide a $\s{AB}$ en media y extrema razón. ∎`,
+      lines: [S`\t{área} DFGL − \t{área} AXLD = \t{área} ABCD − \t{área} AXLD`,
+        S`\t{área} AFGX = \t{área} XBCL`,
+        S`|\s{AX}|^{2} = |\s{BC}| · |\s{XB}|`,
+        S`|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|   \t{porque} \s{BC} \cg \s{AB}`],
+      div: { p: S`Dividimos los dos miembros por $|\s{AX}| · |\s{XB}|$ y simplificamos:`,
+        l: [S`\f{|\s{AB}| · |\s{XB}|}{|\s{AX}| · |\s{XB}|} = \f{|\s{AX}|^{2}}{|\s{AX}| · |\s{XB}|}`], p2: 'Queda la proporción de la definición:', fin: S`\f{\s{AB}}{\s{AX}} = \f{\s{AX}}{\s{XB}}` } }
+  ] },
+  f2: { draw: drawF2, pasos: [
+    { g: 'Construcción', t: S`$F′$ sobre la semirrecta $ED$`,
+      ten: S`El cuadrado $ABCD$, el punto medio $E$ de $\s{AD}$ y el segmento $\s{EB}$.`,
+      hac: S`Con centro $E$ y radio $\s{EB}$ cortamos la semirrecta $ED$ en $F′$.`,
+      obt: S`$\s{EF′} \cg \s{EB}$. $D$ queda entre $E$ y $F′$, porque $\s{EB}$ es mayor que $\s{ED}$; y $E$ queda entre $A$ y $F′$, porque $F′$ está en la semirrecta opuesta a $EA$.` },
+    { g: 'Construcción', t: S`El cuadrado $AF′G′X′$`,
+      ten: S`El segmento $\s{AF′}$.`,
+      hac: S`Construimos el cuadrado $AF′G′X′$, con $X′$ sobre la recta $AB$, del lado opuesto a $B$.`,
+      obt: S`$\s{AX′} \cg \s{AF′}$. $X′$ es exterior a $\s{AB}$; falta justificar que es el punto pedido.` },
+    { g: 'Justificación', t: S`El rectángulo $L′DF′G′$`,
+      ten: S`El cuadrado $AF′G′X′$, $\s{EF′} \cg \s{EB}$ y $\s{ED} \cg \s{AE}$.`,
+      hac: S`La recta $DC$ corta a $\s{X′G′}$ en $L′$. Calculamos el área del rectángulo $L′DF′G′$.`,
+      obt: S`Área del rectángulo $L′DF′G′$ = área del cuadrado $ABCD$ &nbsp;(1)`,
+      lines: [S`\t{área de} L′DF′G′ = |\s{DF′}| · |\s{F′G′}|`, S`= |\s{DF′}| · |\s{AF′}|   \t{porque} \s{F′G′} \cg \s{AF′}`,
+        S`|\s{DF′}| = |\s{EF′}| − |\s{ED}| = |\s{EF′}| − |\s{AE}|`,
+        S`|\s{AF′}| = |\s{EF′}| + |\s{AE}|`,
+        S`|\s{DF′}| · |\s{AF′}| = (|\s{EF′}| − |\s{AE}|) · (|\s{EF′}| + |\s{AE}|)`,
+        S`= |\s{EF′}|^{2} − |\s{AE}|^{2}`,
+        S`= |\s{EB}|^{2} − |\s{AE}|^{2}   \t{porque} \s{EF′} \cg \s{EB}`,
+        S`= |\s{AB}|^{2} + |\s{AE}|^{2} − |\s{AE}|^{2}   \t{por Pitágoras en} EAB`,
+        S`= |\s{AB}|^{2}`] },
+    { g: 'Justificación', t: S`Sumamos el rectángulo $ADL′X′$`,
+      ten: S`(1). El rectángulo $ADL′X′$ es vecino de los dos: completa el cuadrado $AF′G′X′$ y completa el rectángulo $X′BCL′$.`,
+      hac: S`Sumamos el área de $ADL′X′$ a los dos miembros de (1).`,
+      obt: S`$|\s{AX′}|^{2} = |\s{AB}| · |\s{X′B}|$: $X′$ divide exteriormente a $\s{AB}$ en media y extrema razón. ∎`,
+      lines: [S`\t{área} L′DF′G′ + \t{área} ADL′X′ = \t{área} ABCD + \t{área} ADL′X′`,
+        S`\t{área} AF′G′X′ = \t{área} X′BCL′`,
+        S`|\s{AX′}|^{2} = |\s{BC}| · |\s{X′B}|`,
+        S`|\s{AX′}|^{2} = |\s{AB}| · |\s{X′B}|   \t{porque} \s{BC} \cg \s{AB}`],
+      div: { p: S`Dividimos los dos miembros por $|\s{AX′}| · |\s{X′B}|$ y simplificamos:`,
+        l: [S`\f{|\s{AB}| · |\s{X′B}|}{|\s{AX′}| · |\s{X′B}|} = \f{|\s{AX′}|^{2}}{|\s{AX′}| · |\s{X′B}|}`], p2: 'Queda la proporción de la definición:', fin: S`\f{\s{AB}}{\s{AX′}} = \f{\s{AX′}}{\s{X′B}}` } }
+  ] },
+  f3: { draw: drawF3, pasos: [
+    { g: 'Construcción', t: S`La circunferencia tangente en $T$`,
+      ten: S`El segmento $\s{AT}$ que queremos dividir.`,
+      hac: S`Por $T$ trazamos la perpendicular a $\s{AT}$, marcamos sobre ella $O$ con $|\s{OT}| = \f{|\s{AT}|}{2}$ y trazamos la circunferencia de centro $O$ que pasa por $T$.`,
+      obt: S`$\s{AT}$ es tangente en $T$, por ser perpendicular al radio $\s{OT}$, y el diámetro mide lo mismo que $\s{AT}$.`,
+      lines: [S`\t{diámetro} = 2 · |\s{OT}| = 2 · \f{|\s{AT}|}{2} = |\s{AT}|`] },
+    { g: 'Construcción', t: S`La secante por el centro`,
+      ten: S`La circunferencia de centro $O$.`,
+      hac: S`Trazamos la semirrecta $AO$: corta a la circunferencia en $N$ y en $M$, con $N$ entre $A$ y $O$.`,
+      obt: S`$\s{MN}$ es un diámetro, así que $\s{MN} \cg \s{AT}$.` },
+    { g: 'Construcción', t: S`Llevamos $\s{AN}$ sobre $\s{AT}$`,
+      ten: S`El segmento $\s{AN}$.`,
+      hac: S`Con centro $A$ y radio $\s{AN}$ cortamos a $\s{AT}$ en $X$.`,
+      obt: S`$\s{AX} \cg \s{AN}$. $X$ es el punto pedido; falta justificarlo.`,
+      body: S`<p class="nota">$X$ cae entre $A$ y $T$: por la desigualdad triangular en $ATO$, $|\s{AO}| < |\s{AT}| + |\s{OT}|$, y entonces $|\s{AN}| = |\s{AO}| − |\s{ON}| < |\s{AT}|$, porque $\s{ON} \cg \s{OT}$.</p>` },
+    { g: 'Justificación', t: S`Potencia del punto $A$`,
+      ten: S`La tangente $\s{AT}$, la secante que corta en $N$ y $M$, y $\s{MN} \cg \s{AT}$.`,
+      hac: S`Escribimos la relación de potencia como proporción y reemplazamos $\s{AT}$ por $\s{MN}$.`,
+      obt: S`$N$ divide a $\s{AM}$ en media y extrema razón: es la proporción (2).`,
+      lines: [S`\s{AT}^{2} = \s{AM} · \s{AN}`, S`\f{\s{AM}}{\s{AT}} = \f{\s{AT}}{\s{AN}}   \t{(1), al dividir por} \s{AT} · \s{AN}`, S`\f{\s{AM}}{\s{MN}} = \f{\s{MN}}{\s{AN}}   \t{(2), porque} \s{MN} \cg \s{AT}`] },
+    { g: 'Justificación', t: S`Restamos 1 a los dos miembros`,
+      ten: S`La proporción (2).`,
+      hac: S`Restamos 1 a cada miembro, escribiendo el 1 como una fracción con el mismo denominador.`,
+      obt: S`La proporción (3), que compara diferencias de segmentos.`,
+      lines: [S`\f{\s{AM}}{\s{MN}} − 1 = \f{\s{MN}}{\s{AN}} − 1`,
+        S`\f{\s{AM}}{\s{MN}} − \f{\s{MN}}{\s{MN}} = \f{\s{MN}}{\s{AN}} − \f{\s{AN}}{\s{AN}}`,
+        S`\f{\s{AM} − \s{MN}}{\s{MN}} = \f{\s{MN} − \s{AN}}{\s{AN}}   \t{(3)}`] },
+    { g: 'Justificación', t: S`Volvemos al segmento $\s{AT}$`,
+      ten: S`La proporción (3), $\s{AN} \cg \s{AX}$ y $\s{MN} \cg \s{AT}$.`,
+      hac: S`Escribimos cada diferencia con segmentos de $\s{AT}$ y reemplazamos en (3).`,
+      obt: S`$X$ divide a $\s{AT}$ en media y extrema razón. ∎`,
+      lines: [S`|\s{AM}| − |\s{MN}| = |\s{AN}| = |\s{AX}|`,
+        S`|\s{MN}| − |\s{AN}| = |\s{AT}| − |\s{AX}| = |\s{XT}|`,
+        S`\f{\s{AX}}{\s{AT}} = \f{\s{XT}}{\s{AX}}`],
+      div: { p2: 'Invertimos las dos razones:', fin: S`\f{\s{AT}}{\s{AX}} = \f{\s{AX}}{\s{XT}}` } }
+  ] }
+};
+var FIGS = {};
+function tho(p) {
+  return '<div class="tho"><div class="tho-r"><span class="tho-l">Tenemos</span><div>' + R(p.ten) + '</div></div>' +
+    '<div class="tho-r"><span class="tho-l">Hacemos</span><div>' + R(p.hac) + '</div></div>' +
+    '<div class="tho-r tho-ob"><span class="tho-l">Obtenemos</span><div>' + R(p.obt) + '</div></div></div>';
+}
+function capHtml(p) {
+  var b = '';
+  if (p.lines) b += calc(p.lines);
+  if (p.body) b += R(p.body);
+  if (p.div) { b += (p.div.p ? '<p>' + R(p.div.p) + '</p>' : '') + (p.div.l ? calc(p.div.l) : '') + '<p>' + R(p.div.p2) + '</p>' + calc(p.div.fin, 'fin'); }
+  return '<div class="cap-g">' + p.g + '</div><div class="cap-t">' + R(p.t) + '</div>' + tho(p) + (b ? '<div class="cap-b">' + b + '</div>' : '');
+}
+function initFig(id) {
+  var def = PASOS[id], box = $('.figbox[data-fig="' + id + '"]'), n = def.pasos.length, lst = '', gprev = '';
+  def.pasos.forEach(function (p, k) {
+    if (p.g !== gprev) { lst += '<li class="st-gl">' + p.g + '</li>'; gprev = p.g; }
+    lst += '<li><button class="st-go" data-stage="' + k + '"><span class="n">' + (k + 1) + '</span><span>' + R(p.t) + '</span></button></li>';
+  });
+  box.innerHTML = '<div class="figrow"><div><div class="svg-host"></div>' +
+    '<div class="stepper"><button class="btn sec" data-act="prev">◀<span class="lg"> Paso</span> anterior</button><span class="st-n"></span><button class="btn" data-act="next"><span class="lg">Paso </span>siguiente ▶</button></div></div>' +
+    '<div class="st-cap" aria-live="polite"></div></div><ol class="st-list">' + lst + '</ol>';
+  var fg = { id: id, nst: n, stage: 0 };
+  fg.set = function (k) {
+    k = Math.max(0, Math.min(n - 1, k)); fg.stage = k;
+    $('.svg-host', box).innerHTML = def.draw(k);
+    $('.st-n', box).textContent = 'Paso ' + (k + 1) + ' de ' + n;
+    $('.st-cap', box).innerHTML = capHtml(def.pasos[k]);
+    $('[data-act="prev"]', box).disabled = k === 0;
+    $('[data-act="next"]', box).disabled = k === n - 1;
+    $$('.st-go', box).forEach(function (b) { b.classList.toggle('on', +b.dataset.stage === k); });
+  };
+  FIGS[id] = fg; fg.set(0);
+}
+
+/* ---------- mini figuras de la definición ---------- */
+function mini(kind) {
+  var ext = kind === 'ext', w = 440, h = 54, y = 20, o = '';
+  var sc = ext ? 72 : 150, ox = ext ? 263 : 70;
+  var pts = ext ? [['X′', -(1 + R5), C.green], ['A', 0, C.ink], ['X', R5 - 1, C.green], ['B', 2, C.ink]] : [['A', 0, C.ink], ['X', R5 - 1, C.green], ['B', 2, C.ink]];
+  var X = function (t) { return +(ox + t * sc).toFixed(1); };
+  if (ext) o += '<line x1="' + X(-(1 + R5)) + '" y1="' + y + '" x2="' + X(0) + '" y2="' + y + '" stroke="#8A857A" stroke-width="1.4" stroke-dasharray="5 4"/>';
+  o += '<line x1="' + X(0) + '" y1="' + y + '" x2="' + X(2) + '" y2="' + y + '" stroke="#20201C" stroke-width="2.6"/>';
+  pts.forEach(function (p) { o += '<line x1="' + X(p[1]) + '" y1="' + (y - 6) + '" x2="' + X(p[1]) + '" y2="' + (y + 6) + '" stroke="' + p[2] + '" stroke-width="2"/><text class="pl" x="' + X(p[1]) + '" y="' + (y + 27) + '" text-anchor="middle" fill="' + p[2] + '">' + p[0] + '</text>'; });
+  return '<svg class="geo" viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + (ext ? 'Puntos X′, A, X y B alineados' : 'Segmento AB con el punto X') + '" style="max-width:440px;display:block;margin:6px auto 0">' + o + '</svg>';
+}
+
+/* =====================================================================
+   4. EXPLORADORES
+   ===================================================================== */
+function nf(v, d) { var s = v.toFixed(d); if (s.indexOf('.') >= 0) s = s.replace(/0+$/, '').replace(/\.$/, ''); if (s === '-0') s = '0'; return s.replace('.', ',').replace('-', '−'); }
+function f2(v) { return v.toFixed(2).replace('.', ','); }
+function f3(v) { return v.toFixed(3).replace('.', ','); }
+var L1 = { modo: 'int', x: 1, exact: false, tocado: false };
+function lab1Vals() {
+  var ex = L1.exact, int = L1.modo === 'int';
+  var m = ex ? (int ? R5 - 1 : R5 + 1) : L1.x;          // medida del segmento mayor (AX o AX′)
+  var otro = int ? 2 - m : m + 2;                        // XB o X′B
+  return { m: m, otro: otro, sq: m * m, rect: 2 * otro, r1: 2 / m, r2: m / otro };
+}
+function lab1Draw() {
+  var int = L1.modo === 'int', q = lab1Vals(), m = q.m, o = '', v;
+  if (int) {
+    v = View(440, 356, 78, 142, 180);
+    var X = [m, 0];
+    o += pg(v, [[0, 0], [2, 0], [2, -2], [0, -2]], 'none', C.aux, 1.1, DASH);
+    o += pg(v, [X, [2, 0], [2, -2], [m, -2]], FILL.amber, C.amber, 1.8);
+    o += pg(v, [[0, 0], X, [m, m], [0, m]], FILL.blue, C.blue, 1.8);
+    o += ln(v, [0, 0], [2, 0], C.ink, 2.8) + dot(v, [0, 0]) + dot(v, [2, 0]);
+    o += lab(v, [0, 0], 'A', -15, 6) + lab(v, [2, 0], 'B', 15, 6);
+    o += '<circle cx="' + v.x(X) + '" cy="' + v.y(X) + '" r="8" fill="' + C.green + '" stroke="#fff" stroke-width="2.5"/>' + lab(v, X, 'X', -13, 22, C.green);
+  } else {
+    v = View(440, 344, 48, 252, 218);
+    var P = [-m, 0];
+    o += pg(v, [P, [2, 0], [2, -2], [-m, -2]], FILL.amber, C.amber, 1.8);
+    o += pg(v, [P, [0, 0], [0, m], [-m, m]], FILL.blue, C.blue, 1.8);
+    o += ln(v, P, [0, 0], C.aux, 1.6, DASH) + ln(v, [0, 0], [2, 0], C.ink, 2.8) + dot(v, [0, 0]) + dot(v, [2, 0]);
+    o += lab(v, [0, 0], 'A', 12, -9) + lab(v, [2, 0], 'B', 15, 6);
+    o += '<circle cx="' + v.x(P) + '" cy="' + v.y(P) + '" r="8" fill="' + C.green + '" stroke="#fff" stroke-width="2.5"/>' + lab(v, P, 'X′', -17, -10, C.green);
+  }
+  L1.view = v;
+  $('#lab1-svg').innerHTML = svgWrap(v, o, int ? 'Cuadrado sobre AX y rectángulo de lados AB y XB' : 'Cuadrado sobre AX′ y rectángulo de lados AB y X′B', 'l1');
+}
+function lab1Panel() {
+  var int = L1.modo === 'int', ex = L1.exact, q = lab1Vals();
+  var P = int ? S`\s{AX}` : S`\s{AX′}`, Q = int ? S`\s{XB}` : S`\s{X′B}`;
+  var e = ex ? '≈' : '=';
+  var ms = ex ? f3(q.m) : f2(q.m), os = ex ? f3(q.otro) : f2(q.otro);
+  var L = [];
+  if (ex) L.push('|' + P + '| = ' + (int ? S`\r{5} − 1` : S`\r{5} + 1`) + ' ≈ ' + (int ? '2,236 − 1' : '2,236 + 1') + ' = ' + ms);
+  else L.push('|' + P + '| = ' + ms);
+  L.push('|' + Q + '| ' + (int ? '= |\\s{AB}| − |' + P + '| ' + e + ' 2 − ' + ms : '= |' + P + '| + |\\s{AB}| ' + e + ' ' + ms + ' + 2') + ' = ' + os);
+  var sq = ex ? f3(q.sq) : nf(q.sq, 4), rc = ex ? f3(q.rect) : nf(q.rect, 2);
+  L.push(S`\t{cuadrado:}  ` + '|' + P + '|^{2} ' + e + ' ' + ms + '^{2} ' + (ex ? '≈' : '=') + ' ' + sq);
+  L.push(S`\t{rectángulo:}  ` + S`|\s{AB}| · |` + Q + '| ' + e + ' 2 · ' + os + ' = ' + rc);
+  var rz = function (val) { return (!ex && Math.abs(val - Math.round(val * 1000) / 1000) < 1e-9) ? '= ' + nf(val, 3) : '≈ ' + f3(val); };
+  L.push(S`\f{\s{AB}}{` + P + '} ' + e + S` \f{2}{` + ms + '} ' + rz(q.r1) + S`      \f{` + P + '}{' + Q + '} ' + e + S` \f{` + ms + '}{' + os + '} ' + rz(q.r2));
+  $('#lab1-panel').innerHTML = calc(L);
+  var ver = $('#lab1-ver'), d = q.sq - q.rect, pt = int ? '$X$' : '$X′$';
+  ver.classList.toggle('ok', ex);
+  if (ex) ver.innerHTML = R('<b>Coinciden.</b> El cuadrado y el rectángulo tienen la misma área y las dos razones dan lo mismo: ' + pt + ' divide a $\\s{AB}$ en media y extrema razón.');
+  else if (d > 0) ver.innerHTML = R('El cuadrado es mayor que el rectángulo: ' + pt + ' está demasiado lejos de $A$.');
+  else ver.innerHTML = R('El rectángulo es mayor que el cuadrado: ' + pt + ' está demasiado cerca de $A$.');
+  $('#lab1-l1').innerHTML = R('cuadrado de lado $' + P + '$'); $('#lab1-l2').innerHTML = R('rectángulo de lados $\\s{AB}$ y $' + Q + '$');
+  $('#lab1-lbl').innerHTML = R(int ? 'Posición de $X$ sobre $\\s{AB}$' : 'Posición de $X′$ sobre la prolongación');
+}
+function lab1Upd() { lab1Draw(); lab1Panel(); $('#lab1-ex').disabled = !L1.tocado; }
+function lab1Set(x) {
+  var int = L1.modo === 'int', lo = int ? 0.1 : 0.5, hi = int ? 1.9 : 4;
+  L1.x = Math.round(Math.max(lo, Math.min(hi, x)) * 100) / 100; L1.exact = false; L1.tocado = true;
+  $('#lab1-x').value = L1.x; lab1Upd();
+}
+function lab1Modo(m) {
+  L1.modo = m; L1.exact = false; L1.tocado = false; L1.x = m === 'int' ? 1 : 2;
+  var r = $('#lab1-x'); r.min = m === 'int' ? 0.1 : 0.5; r.max = m === 'int' ? 1.9 : 4; r.value = L1.x;
+  $$('#lab1 .seg-b').forEach(function (b) { b.classList.toggle('on', b.dataset.modo === m); });
+  lab1Upd();
+}
+function lab1Init() {
+  var host = $('#lab1-svg'), down = false;
+  function at(ev) {
+    var r = host.getBoundingClientRect(), v = L1.view, wx = ((ev.clientX - r.left) / r.width * v.w - v.ox) / v.sc;
+    lab1Set(L1.modo === 'int' ? wx : -wx);
+  }
+  host.addEventListener('pointerdown', function (ev) { down = true; try { host.setPointerCapture(ev.pointerId); } catch (e) {} at(ev); });
+  host.addEventListener('pointermove', function (ev) { if (down) at(ev); });
+  ['pointerup', 'pointercancel'].forEach(function (n) { host.addEventListener(n, function () { down = false; }); });
+  $('#lab1-x').addEventListener('input', function (ev) { lab1Set(+ev.target.value); });
+  $('#lab1-ex').addEventListener('click', function () { L1.exact = true; $('#lab1-x').value = L1.modo === 'int' ? R5 - 1 : R5 + 1; lab1Upd(); });
+  lab1Upd();
+}
+
+var L2 = { b: 1.5, exact: false, tocado: false, mas: false };
+function lab2Draw() {
+  var b = L2.exact ? PHI : L2.b, v = View(490, 292, 215, 30, 250), o = '';
+  o += pg(v, [[1, 0], [b, 0], [b, 1], [1, 1]], FILL.amber, C.amber, 1.8);
+  o += pg(v, [[0, 0], [1, 0], [1, 1], [0, 1]], FILL.blue, C.blue, 1.8);
+  if (L2.mas) {
+    var r = { x: 1, y: 0, w: b - 1, h: 1 }, nt = 0, nw = 0;
+    for (var k = 0; k < 7; k++) {
+      if (r.w < 0.025 || r.h < 0.025 || Math.abs(r.w - r.h) < 1e-9) break;
+      var sdd, q;
+      if (r.h > r.w) { sdd = r.w; if (nt++ % 2 === 0) { q = [r.x, r.y + r.h - sdd]; r.h -= sdd; } else { q = [r.x, r.y]; r.y += sdd; r.h -= sdd; } }
+      else { sdd = r.h; if (nw++ % 2 === 0) { q = [r.x + r.w - sdd, r.y]; r.w -= sdd; } else { q = [r.x, r.y]; r.x += sdd; r.w -= sdd; } }
+      o += pg(v, [q, [q[0] + sdd, q[1]], [q[0] + sdd, q[1] + sdd], [q[0], q[1] + sdd]], k % 2 ? 'rgba(199,122,64,.10)' : 'rgba(43,90,147,.12)', C.blue, 1.2);
+    }
+  }
+  o += ln(v, [0, 0], [b, 0], C.ink, 2.8) + dot(v, [0, 0]) + dot(v, [b, 0]) + dot(v, [1, 0], C.green, 5);
+  o += lab(v, [0, 0], 'A', -4, 24) + lab(v, [b, 0], 'B', 4, 24) + lab(v, [1, 0], 'X', 0, 24, C.green);
+  $('#lab2-svg').innerHTML = svgWrap(v, o, 'Rectángulo de base AB y altura 1 con el cuadrado de lado AX', 'l2');
+}
+function lab2Panel() {
+  var ex = L2.exact, b = ex ? PHI : L2.b, e = ex ? '≈' : '=';
+  var bs = ex ? f3(b) : f2(b), rs = ex ? f3(b - 1) : f2(b - 1), r1 = b, r2 = 1 / (b - 1);
+  var aprox = function (val) { return Math.abs(val - Math.round(val * 1000) / 1000) < 1e-9 && !ex ? '=' : '≈'; };
+  var L = [
+    S`|\s{AB}| ` + (ex ? '= φ ≈ ' : '= ') + bs + S`      |\s{AX}| = 1`,
+    S`|\s{XB}| = |\s{AB}| − |\s{AX}| ` + e + ' ' + bs + ' − 1 = ' + rs,
+    S`\t{rectángulo entero:}  \f{\s{AB}}{\s{AX}} ` + e + S` \f{` + bs + '}{1} = ' + (ex ? bs : nf(r1, 2)),
+    S`\t{rectángulo chico:}  \f{\s{AX}}{\s{XB}} ` + e + S` \f{1}{` + rs + '} ' + aprox(r2) + ' ' + nf(r2, 3)
+  ];
+  $('#lab2-panel').innerHTML = calc(L);
+  var ver = $('#lab2-ver'); ver.classList.toggle('ok', ex);
+  if (ex) ver.innerHTML = R('<b>Coinciden.</b> El rectángulo chico es semejante al entero, y $X$ divide a $\\s{AB}$ en media y extrema razón. Un rectángulo con esta forma se llama áureo: al dividirlo así, el rectángulo chico vuelve a tener la misma forma, y se puede repetir la división dentro de él.');
+  else if (r2 > r1) ver.innerHTML = 'El rectángulo chico es más alargado que el entero: la base es demasiado corta.';
+  else ver.innerHTML = 'El rectángulo chico es menos alargado que el entero: la base es demasiado larga.';
+  $('#lab2-lbl').innerHTML = R('Medida de la base $\\s{AB}$');
+}
+function lab2Upd() { lab2Draw(); lab2Panel(); $('#lab2-ex').disabled = !L2.tocado; }
+function lab2Init() {
+  $('#lab2-b').addEventListener('input', function (ev) { L2.b = +ev.target.value; L2.exact = false; L2.tocado = true; lab2Upd(); });
+  $('#lab2-ex').addEventListener('click', function () { L2.exact = true; $('#lab2-b').value = PHI; lab2Upd(); });
+  $('#lab2-mas').addEventListener('click', function (ev) { L2.mas = !L2.mas; ev.currentTarget.setAttribute('aria-pressed', L2.mas); ev.currentTarget.textContent = L2.mas ? 'Dejar una sola división' : 'Repetir la división en el rectángulo chico'; lab2Draw(); });
+  lab2Upd();
+}
+
+/* =====================================================================
+   5. PRÁCTICA
+   ===================================================================== */
+var EJ = [
+  { id: 'e1', tab: 'def', tipo: 'mc',
+    enun: S`Sobre un segmento $\s{AB}$ de 9 cm se marca $X$ con $|\s{AX}| = 6$ cm y $|\s{XB}| = 3$ cm. ¿$X$ divide a $\s{AB}$ en media y extrema razón?`,
+    ops: [S`Sí: se cumple la proporción`, S`No: $X$ tendría que estar más cerca de $A$`, S`No: $X$ tendría que estar más cerca de $B$`, S`No se puede saber sin construirlo`],
+    ok: 1,
+    fbOk: S`El cuadrado sobre $\s{AX}$ supera al rectángulo: hay que acortar $\s{AX}$.`,
+    fbNo: [S`Compará las dos razones, $\f{9}{6}$ y $\f{6}{3}$: ¿dan lo mismo?`, '', S`Calculá las dos áreas y fijate cuál es mayor: de eso depende hacia dónde hay que mover $X$.`, S`Alcanza con la definición: las tres medidas permiten controlar la condición.`],
+    pistas: [S`Calculá $|\s{AX}|^{2}$ y $|\s{AB}| · |\s{XB}|$.`, S`Si el cuadrado es mayor que el rectángulo, $\s{AX}$ es demasiado largo.`],
+    reso: [
+      { t: 'La condición', l: [S`|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|`] },
+      { t: 'El cuadrado', l: [S`|\s{AX}|^{2} = 6^{2} = 36`] },
+      { t: 'El rectángulo', l: [S`|\s{AB}| · |\s{XB}| = 9 · 3 = 27`] },
+      { t: 'Comparamos', p: S`$36 ≠ 27$: no se cumple. Lo mismo dicen las razones (la primera se simplifica por 3):`, l: [S`\f{\s{AB}}{\s{AX}} = \f{9}{6} = \f{3}{2} = 1,5      \f{\s{AX}}{\s{XB}} = \f{6}{3} = 2`] },
+      { t: S`Hacia dónde mover $X$`, p: S`El cuadrado (36) es mayor que el rectángulo (27). Al acercar $X$ a $A$, $\s{AX}$ se acorta y el cuadrado se achica, mientras $\s{XB}$ se alarga y el rectángulo crece. $X$ tendría que estar más cerca de $A$.` }
+    ] },
+  { id: 'e2', tab: 'def', tipo: 'num', resp: 7, tol: 0.005, un: 'cm',
+    enun: S`$X$ divide a $\s{AB}$ en media y extrema razón, y $\s{AX}$ es el segmento mayor. El rectángulo de lados $\s{AB}$ y $\s{XB}$ tiene 49 cm² de área. ¿Cuánto mide $\s{AX}$?`,
+    fbOk: S`Es el lado del cuadrado que tiene la misma área que el rectángulo.`,
+    fbNo: S`Revisá qué figura tiene la misma área que ese rectángulo.`,
+    tr: [{ v: 49, m: S`49 es el área del cuadrado de lado $\s{AX}$: falta sacar el lado.` }, { v: 24.5, m: S`No hay que dividir por 2: buscás el lado de un cuadrado de área 49.` }],
+    pistas: [S`La definición iguala dos áreas.`, S`$|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|$, y el segundo miembro es el dato.`],
+    reso: [
+      { t: 'La definición, con áreas', l: [S`|\s{AX}|^{2} = |\s{AB}| · |\s{XB}|`] },
+      { t: 'Reemplazamos el dato', l: [S`|\s{AX}|^{2} = 49`] },
+      { t: 'Sacamos el lado', p: S`La medida es positiva:`, l: [S`|\s{AX}| = \r{49} = 7`] },
+      { t: 'Respuesta', p: S`$\s{AX}$ mide 7 cm.` }
+    ] },
+  { id: 'e3', tab: 'def', tipo: 'mc',
+    enun: S`Para el punto exterior $X′$, un compañero plantea $\f{\s{AB}}{\s{AX′}} = \f{\s{AX′}}{\s{X′B}}$ y después reemplaza $|\s{X′B}| = |\s{AX′}| − |\s{AB}|$. ¿Qué opinás?`,
+    ops: [S`Está bien la proporción y está bien el reemplazo`, S`Está mal la proporción y está bien el reemplazo`, S`Están mal la proporción y el reemplazo`, S`Está bien la proporción y está mal el reemplazo`],
+    ok: 3,
+    fbOk: S`$A$ está entre $X′$ y $B$: las medidas se suman.`,
+    fbNo: [S`Ubicá los tres puntos sobre la recta: ¿en qué orden están $X′$, $A$ y $B$?`, S`La proporción es la de la definición, con $\s{AX′}$ en los dos medios. Mirá el reemplazo.`, S`La proporción es la de la definición, con $\s{AX′}$ en los dos medios.`, ''],
+    pistas: [S`$X′$ está sobre la prolongación de $\s{AB}$ del lado de $A$.`, S`Si $A$ está entre $X′$ y $B$, ¿$\s{X′B}$ es una suma o una resta?`],
+    reso: [
+      { t: 'La proporción', p: S`Es la de la definición para el punto exterior: la media es $\s{AX′}$ y ocupa los dos lugares del medio. Está bien.` },
+      { t: 'El orden de los puntos', p: S`$X′$ está del lado de $A$: sobre la recta el orden es $X′$, $A$, $B$. Entonces $A$ está entre $X′$ y $B$.` },
+      { t: 'El reemplazo correcto', l: [S`|\s{X′B}| = |\s{X′A}| + |\s{AB}|`] },
+      { t: 'Un control con números', p: S`Si $|\s{AB}| = 2$ y $|\s{AX′}| = 3$:`, l: [S`|\s{X′B}| = 3 + 2 = 5`], p2: S`La resta daría $3 − 2 = 1$, que es menos que $|\s{AB}|$: imposible, porque $\s{X′B}$ contiene a $\s{AB}$.` }
+    ] },
+
+  { id: 'e4', tab: 'cuad', tipo: 'num', resp: 3 * (R5 - 1), tol: 0.011, un: 'cm',
+    enun: S`$\s{AB}$ mide 6 cm. Con la construcción del cuadrado, ¿cuánto mide $\s{AX}$? Respondé con dos decimales.`,
+    fbOk: S`Es la hipotenusa $\s{EB}$ menos el cateto $\s{EA}$.`,
+    fbNo: S`Volvé a la construcción: $\s{AX}$ es congruente con $\s{AF}$, y $F$ sale de llevar $\s{EB}$ desde $E$.`,
+    tr: [{ v: 6.71, m: S`Esa es la medida de $\s{EB}$. Falta restarle $\s{EA}$.` }, { v: 9.71, m: S`Sumaste $\s{EA}$: esa es la medida del segmento exterior $\s{AX′}$.` }, { v: 3, m: S`3 cm es la mitad: mide $\s{EA}$, no $\s{AX}$.` }],
+    pistas: [S`$|\s{AX}| = |\s{EB}| − |\s{EA}|$.`, S`$|\s{EA}| = 3$ cm, y $\s{EB}$ sale por Pitágoras en el triángulo $EAB$.`],
+    reso: [
+      { t: S`El cateto $\s{EA}$`, l: [S`|\s{EA}| = \f{|\s{AD}|}{2} = \f{6}{2} = 3`] },
+      { t: S`La hipotenusa $\s{EB}$`, l: [S`|\s{EB}|^{2} = |\s{AB}|^{2} + |\s{EA}|^{2} = 6^{2} + 3^{2} = 36 + 9 = 45`, S`|\s{EB}| = \r{45} = \r{9 · 5} = 3 \r{5} ≈ 3 · 2,236 = 6,708`] },
+      { t: S`El segmento $\s{AX}$`, l: [S`|\s{AX}| = |\s{AF}| = |\s{EF}| − |\s{EA}| = |\s{EB}| − |\s{EA}|`, S`≈ 6,708 − 3 = 3,708 ≈ 3,71`] },
+      { t: 'Verificación con la fórmula', l: [S`\f{\r{5} − 1}{2} · 6 ≈ 0,618 · 6 = 3,708 ≈ 3,71`] },
+      { t: 'Respuesta', p: S`$\s{AX}$ mide aproximadamente 3,71 cm.` }
+    ] },
+  { id: 'e5', tab: 'cuad', tipo: 'mc',
+    enun: S`Supongamos que $E$ no fuera el punto medio de $\s{AD}$, sino otro punto de ese lado, distinto de $A$, y que todo lo demás se hiciera igual. ¿Qué igualdad de la justificación dejaría de valer?`,
+    ops: [S`$|\s{AF}| = |\s{EF}| − |\s{EA}|$`, S`$|\s{EB}|^{2} = |\s{AB}|^{2} + |\s{EA}|^{2}$`, S`$|\s{DF}| = |\s{EF}| + |\s{EA}|$`, S`$|\s{FG}| = |\s{AF}|$`],
+    ok: 2,
+    fbOk: S`Esa igualdad necesita $\s{ED} \cg \s{EA}$, que es lo que aporta el punto medio.`,
+    fbNo: [S`Esa solo usa que $A$ está entre $E$ y $F$, y eso no cambia.`, S`Es Pitágoras en $EAB$, y el ángulo en $A$ sigue siendo recto.`, '', S`Son lados del cuadrado $AFGX$: no depende de dónde esté $E$.`],
+    pistas: [S`Buscá en qué paso se usa $\s{ED} \cg \s{EA}$.`, S`$|\s{DF}| = |\s{EF}| + |\s{ED}|$ vale siempre. ¿Qué hace falta para cambiar $\s{ED}$ por $\s{EA}$?`],
+    reso: [
+      { t: 'Dónde se usa el punto medio', p: S`En el paso 6 se escribe $\s{DF}$ a partir de $E$:`, l: [S`|\s{DF}| = |\s{EF}| + |\s{ED}| = |\s{EF}| + |\s{EA}|`], p2: S`La segunda igualdad cambia $\s{ED}$ por $\s{EA}$, y eso exige $\s{ED} \cg \s{EA}$. Si $E$ no es el punto medio, deja de valer.` },
+      { t: 'Las otras tres siguen valiendo', p: S`$|\s{AF}| = |\s{EF}| − |\s{EA}|$ solo necesita que $A$ esté entre $E$ y $F$. Pitágoras en $EAB$ solo necesita el ángulo recto en $A$. Y $|\s{FG}| = |\s{AF}|$ vale por ser lados del cuadrado $AFGX$.` },
+      { t: 'Qué se pierde', p: S`Sin esa igualdad no se arma el producto $(|\s{EF}| + |\s{EA}|) · (|\s{EF}| − |\s{EA}|)$, y no aparece la diferencia de cuadrados.` }
+    ] },
+  { id: 'e6', tab: 'cuad', tipo: 'num', resp: 7 * (R5 + 1), tol: 0.011, un: 'cm',
+    enun: S`$\s{AB}$ mide 14 cm. Con la construcción del cuadrado, ¿cuánto mide el segmento exterior $\s{AX′}$? Respondé con dos decimales.`,
+    fbOk: S`Es el cateto $\s{AE}$ más la hipotenusa $\s{EB}$.`,
+    fbNo: S`$\s{AX′}$ es congruente con $\s{AF′}$. Ubicá $A$, $E$ y $F′$ sobre la recta $AD$ y fijate qué segmentos forman $\s{AF′}$.`,
+    tr: [{ v: 8.65, m: S`Restaste: esa es la medida del segmento interior $\s{AX}$. En el exterior, $E$ queda entre $A$ y $F′$.` }, { v: 15.65, m: S`Esa es la medida de $\s{EB}$. Falta sumarle $\s{AE}$.` }, { v: 29.65, m: S`Sumaste 14, que es todo el lado. $\s{AE}$ mide la mitad.` }],
+    pistas: [S`$\s{AX′} \cg \s{AF′}$, y $F′$ está sobre la semirrecta $ED$: $E$ queda entre $A$ y $F′$.`, S`$|\s{AF′}| = |\s{AE}| + |\s{EF′}|$, con $|\s{AE}| = 7$ cm y $\s{EF′} \cg \s{EB}$.`],
+    reso: [
+      { t: S`El cateto $\s{AE}$`, l: [S`|\s{AE}| = \f{|\s{AD}|}{2} = \f{14}{2} = 7`] },
+      { t: S`La hipotenusa $\s{EB}$`, l: [S`|\s{EB}|^{2} = |\s{AB}|^{2} + |\s{AE}|^{2} = 14^{2} + 7^{2} = 196 + 49 = 245`, S`|\s{EB}| = \r{245} = \r{49 · 5} = 7 \r{5} ≈ 7 · 2,236 = 15,652`] },
+      { t: S`El segmento $\s{AX′}$`, p: S`$E$ está entre $A$ y $F′$, y $\s{EF′} \cg \s{EB}$:`, l: [S`|\s{AX′}| = |\s{AF′}| = |\s{AE}| + |\s{EF′}| = |\s{AE}| + |\s{EB}|`, S`≈ 7 + 15,652 = 22,652 ≈ 22,65`] },
+      { t: 'Verificación con la fórmula', l: [S`\f{\r{5} + 1}{2} · 14 ≈ 1,618 · 14 = 22,652 ≈ 22,65`] },
+      { t: 'Respuesta', p: S`$\s{AX′}$ mide aproximadamente 22,65 cm.` }
+    ] },
+  { id: 'e13', tab: 'cuad', tipo: 'mc',
+    enun: S`$\s{AB}$ mide 4 cm. Un compañero hace la construcción con el cuadrado y le queda $|\s{AX}| ≈ 4,47$ cm. ¿Qué error cometió?`,
+    ops: [S`Llevó $\s{EB}$ sobre la semirrecta $ED$`, S`Tomó $E$ a 1 cm de $A$`, S`Hizo centro en $A$ en lugar de en $E$`, S`Sumó $\s{EA}$ en lugar de restarlo`],
+    ok: 2,
+    fbOk: S`4,47 cm es la medida de $\s{EB}$: la llevó desde $A$.`,
+    fbNo: [S`Eso daría el segmento exterior, que mide más. Calculá cuánto mide $\s{EB}$ y comparalo con 4,47.`, S`Con $|\s{AE}| = 1$ cm cambian la hipotenusa y la resta. Hacé la cuenta y comparala con 4,47.`, '', S`Sumar daría más. Calculá cuánto mide $\s{EB}$ y comparalo con 4,47.`],
+    pistas: [S`Hacé la construcción correcta con 4 cm: ¿cuánto miden $\s{EA}$ y $\s{EB}$?`, S`Compará 4,47 con la medida de $\s{EB}$.`],
+    reso: [
+      { t: 'La construcción correcta', l: [S`|\s{EA}| = \f{4}{2} = 2`, S`|\s{EB}|^{2} = |\s{AB}|^{2} + |\s{EA}|^{2} = 4^{2} + 2^{2} = 16 + 4 = 20`, S`|\s{EB}| = \r{20} = \r{4 · 5} = 2 \r{5} ≈ 2 · 2,236 = 4,472`, S`|\s{AX}| = |\s{EB}| − |\s{EA}| ≈ 4,472 − 2 = 2,472 ≈ 2,47`] },
+      { t: 'De dónde sale 4,47', p: S`Es la medida de $\s{EB}$, $4,472 ≈ 4,47$. Le quedó $|\s{AF}| = |\s{EB}|$: llevó $\s{EB}$ con centro en $A$ y no en $E$.` },
+      { t: 'La señal de alarma', p: S`$4,47 > 4$: con esa medida $X$ cae fuera de $\s{AB}$.` },
+      { t: 'Las otras opciones dan otros valores', p: S`Llevar $\s{EB}$ sobre la semirrecta $ED$ o sumar $\s{EA}$ dan lo mismo:`, l: [S`|\s{AE}| + |\s{EB}| ≈ 2 + 4,472 = 6,472 ≈ 6,47`], p2: S`Y con $E$ a 1 cm de $A$:` , l2: [S`|\s{EB}|^{2} = 4^{2} + 1^{2} = 16 + 1 = 17`, S`|\s{EB}| = \r{17} ≈ 4,123`, S`|\s{AX}| ≈ 4,123 − 1 = 3,123 ≈ 3,12`] }
+    ] },
+  { id: 'e7', tab: 'pot', tipo: 'num', resp: 4 * (R5 - 1), tol: 0.011, un: 'cm',
+    enun: S`$\s{AT}$ mide 8 cm. En la construcción con tangente y secante, ¿cuánto mide $\s{AN}$? Respondé con dos decimales.`,
+    fbOk: S`Y como $\s{AX} \cg \s{AN}$, $X$ queda a esa distancia de $A$.`,
+    fbNo: S`$N$ está entre $A$ y $O$: a la distancia de $A$ al centro hay que quitarle un radio.`,
+    tr: [{ v: 8.94, m: S`Esa es la medida de $\s{AO}$. Falta restarle el radio $\s{ON}$.` }, { v: 12.94, m: S`Sumaste el radio: esa es la medida de $\s{AM}$.` }, { v: 0.94, m: S`Restaste 8, que es el diámetro. El radio mide 4 cm.` }],
+    pistas: [S`$|\s{AN}| = |\s{AO}| − |\s{ON}|$, y el radio mide la mitad de $\s{AT}$.`, S`$\s{AO}$ sale por Pitágoras en el triángulo $ATO$, de catetos 8 cm y 4 cm.`],
+    reso: [
+      { t: 'El radio', l: [S`|\s{OT}| = \f{|\s{AT}|}{2} = \f{8}{2} = 4`] },
+      { t: S`La distancia $\s{AO}$`, p: S`$ATO$ es rectángulo en $T$:`, l: [S`|\s{AO}|^{2} = |\s{AT}|^{2} + |\s{OT}|^{2} = 8^{2} + 4^{2} = 64 + 16 = 80`, S`|\s{AO}| = \r{80} = \r{16 · 5} = 4 \r{5} ≈ 4 · 2,236 = 8,944`] },
+      { t: S`El segmento $\s{AN}$`, p: S`$\s{ON}$ es un radio, mide 4:`, l: [S`|\s{AN}| = |\s{AO}| − |\s{ON}| ≈ 8,944 − 4 = 4,944 ≈ 4,94`] },
+      { t: 'Verificación con la fórmula', l: [S`\f{\r{5} − 1}{2} · 8 ≈ 0,618 · 8 = 4,944 ≈ 4,94`] },
+      { t: 'Respuesta', p: S`$\s{AN}$ mide aproximadamente 4,94 cm.` }
+    ] },
+  { id: 'e8', tab: 'pot', tipo: 'mc',
+    enun: S`En el último paso de la justificación se escribe $|\s{AM}| − |\s{MN}| = |\s{AN}|$. ¿En qué se apoya esa igualdad?`,
+    ops: [S`En que $N$ está entre $A$ y $M$`, S`En que $\s{MN} \cg \s{AT}$`, S`En que $\s{AN} \cg \s{AX}$`, S`En que $O$ es el punto medio de $\s{MN}$`],
+    ok: 0,
+    fbOk: S`Por eso $\s{AM}$ es la suma de $\s{AN}$ y $\s{NM}$.`,
+    fbNo: ['', S`Eso se usa en la otra diferencia, para cambiar $\s{MN}$ por $\s{AT}$. Acá no aparece $\s{AT}$.`, S`Eso permite después cambiar $\s{AN}$ por $\s{AX}$, pero no explica la resta.`, S`Es cierto, pero no relaciona a $\s{AM}$ con $\s{AN}$.`],
+    pistas: [S`Ubicá $A$, $N$ y $M$ sobre la secante: ¿en qué orden están?`, S`Si un punto está entre otros dos, el segmento entero es la suma de las dos partes.`],
+    reso: [
+      { t: 'El orden de los puntos', p: S`Sobre la secante el orden es $A$, $N$, $O$, $M$: $N$ está entre $A$ y $M$.` },
+      { t: 'El entero es la suma de las partes', l: [S`|\s{AM}| = |\s{AN}| + |\s{MN}|`] },
+      { t: S`Restamos $|\s{MN}|$ a los dos miembros`, l: [S`|\s{AM}| − |\s{MN}| = |\s{AN}| + |\s{MN}| − |\s{MN}|`, S`|\s{AM}| − |\s{MN}| = |\s{AN}|`] }
+    ] },
+  { id: 'e9', tab: 'pot', tipo: 'mc',
+    enun: S`En otra figura la tangente mide $|\s{AT}| = 6$, y la secante que pasa por el centro da $|\s{AN}| = 4$ y $|\s{AM}| = 9$. ¿$N$ divide a $\s{AM}$ en media y extrema razón?`,
+    ops: [S`No, porque $|\s{AT}|^{2} ≠ |\s{AM}| · |\s{AN}|$`, S`Sí, porque $|\s{AT}|^{2} = |\s{AM}| · |\s{AN}|$`, S`Sí, porque $\s{MN}$ es un diámetro`, S`No, porque $|\s{MN}| ≠ |\s{AT}|$`],
+    ok: 3,
+    fbOk: S`La potencia se cumple siempre; lo que falla es la medida del diámetro.`,
+    fbNo: [S`Hacé la cuenta: $6^{2}$ y $9 · 4$.`, S`Esa igualdad vale para cualquier tangente y secante. Para la media y extrema razón hace falta algo más.`, S`Que sea un diámetro no alcanza: importa cuánto mide.`, ''],
+    pistas: [S`Calculá $|\s{MN}|$ a partir de $|\s{AM}|$ y $|\s{AN}|$.`, S`$N$ divide a $\s{AM}$ en media y extrema razón si $|\s{MN}|^{2} = |\s{AM}| · |\s{AN}|$.`],
+    reso: [
+      { t: 'La potencia se cumple', l: [S`|\s{AT}|^{2} = 6^{2} = 36`, S`|\s{AM}| · |\s{AN}| = 9 · 4 = 36`] },
+      { t: 'El diámetro', l: [S`|\s{MN}| = |\s{AM}| − |\s{AN}| = 9 − 4 = 5`] },
+      { t: 'La condición de media y extrema razón', p: S`El segmento mayor es $\s{MN}$; tendría que cumplirse $|\s{MN}|^{2} = |\s{AM}| · |\s{AN}|$:`, l: [S`|\s{MN}|^{2} = 5^{2} = 25`, S`|\s{AM}| · |\s{AN}| = 9 · 4 = 36`], p2: S`$25 ≠ 36$: $N$ no divide a $\s{AM}$ en media y extrema razón.` },
+      { t: 'Qué falló', p: S`$|\s{MN}| = 5$ y $|\s{AT}| = 6$: el diámetro no mide lo mismo que la tangente. El radio tendría que ser $\f{6}{2} = 3$ y es $\f{5}{2} = 2,5$.` }
+    ] },
+
+  { id: 'e10', tab: 'oro', tipo: 'num', resp: 32.36, tol: 0.011, un: 'cm',
+    enun: S`Un portarretratos tiene forma de rectángulo áureo: la razón entre su lado mayor y su lado menor es $φ$. El lado menor mide 20 cm. ¿Cuánto mide el lado mayor? Usá $φ ≈ 1,618$ y respondé con dos decimales.`,
+    fbOk: S`El lado mayor es $φ$ veces el menor.`,
+    fbNo: S`En un rectángulo áureo, el lado mayor dividido por el menor da $φ$.`,
+    tr: [{ v: 12.36, m: S`Dividiste por $φ$: eso achica. El lado mayor tiene que medir más de 20 cm.` }, { v: 52.36, m: S`Ese valor es más de dos veces y media el lado menor: te pasaste. El lado mayor es $φ$ veces el menor, una sola multiplicación.` }],
+    pistas: [S`Lado mayor sobre lado menor es igual a $φ$.`, S`Despejá: lado mayor $= φ ·$ lado menor.`],
+    reso: [
+      { t: 'La proporción', l: [S`\f{\t{lado mayor}}{\t{lado menor}} = φ`] },
+      { t: 'Despejamos y reemplazamos', l: [S`\t{lado mayor} = φ · \t{lado menor} ≈ 1,618 · 20 = 32,36`] },
+      { t: 'Respuesta', p: S`El lado mayor mide aproximadamente 32,36 cm.` }
+    ] },
+  { id: 'e11', tab: 'oro', tipo: 'mc',
+    enun: S`¿A cuál de estas expresiones es igual $φ^{3}$?`,
+    ops: [S`$3 φ$`, S`$φ + 2$`, S`$2 φ + 1$`, S`$3 φ − 1$`],
+    ok: 2,
+    fbOk: S`En decimales: $2 · 1,618 + 1 = 4,236$.`,
+    fbNo: [S`Elevar al cubo no es multiplicar por 3. Escribí $φ^{3}$ como $φ · φ^{2}$ y usá $φ^{2} = φ + 1$.`, S`Sumar 1 sirve para pasar de $φ$ a $φ^{2}$, no de $φ^{2}$ a $φ^{3}$: para eso hay que multiplicar por $φ$.`, '', S`Al reemplazar $φ^{2}$ por $φ + 1$ se suma 1, no se resta.`],
+    pistas: [S`$φ^{3} = φ · φ^{2}$, y $φ^{2} = φ + 1$.`, S`Después de distribuir vuelve a aparecer $φ^{2}$: reemplazalo otra vez.`],
+    reso: [
+      { t: 'Separamos un factor', l: [S`φ^{3} = φ · φ^{2}`] },
+      { t: S`Reemplazamos $φ^{2}$ por $φ + 1$`, l: [S`φ^{3} = φ · (φ + 1) = φ · φ + φ · 1 = φ^{2} + φ`] },
+      { t: 'Reemplazamos otra vez', l: [S`φ^{3} = (φ + 1) + φ = 2 φ + 1`] },
+      { t: 'Control en decimales', l: [S`2 φ + 1 ≈ 2 · 1,618 + 1 = 3,236 + 1 = 4,236`, S`φ^{3} ≈ 1,618 · 1,618 · 1,618 = 2,617924 · 1,618 ≈ 4,236`] }
+    ] },
+  { id: 'e12', tab: 'oro', tipo: 'mc',
+    enun: S`$\s{AB}$ mide 30 cm y $X$ lo divide en media y extrema razón. Alguien afirma que el segmento menor mide $\f{30}{φ} ≈ 18,54$ cm. ¿Qué calculó en realidad?`,
+    ops: [S`El segmento menor, $\s{XB}$`, S`El segmento exterior, $\s{AX′}$`, S`La mitad de $\s{AB}$`, S`El segmento mayor, $\s{AX}$`],
+    ok: 3,
+    fbOk: S`Dividir el entero por $φ$ da el segmento mayor.`,
+    fbNo: [S`Compará 18,54 con la mitad de 30: ¿puede ser el menor de los dos segmentos?`, S`El segmento exterior mide más que $\s{AB}$, y 18,54 es menos que 30.`, S`La mitad de 30 es 15.`, ''],
+    pistas: [S`La razón entre $\s{AB}$ y el segmento mayor $\s{AX}$ es $φ$.`, S`Despejá $|\s{AX}|$ de esa igualdad.`],
+    reso: [
+      { t: S`Qué da dividir por $φ$`, p: S`La razón entre $\s{AB}$ y el segmento mayor es $φ$. De ahí se despeja $\s{AX}$, y dividir por $φ$ es multiplicar por $\f{1}{φ} = φ − 1 ≈ 0,618$:`, l: [S`\f{|\s{AB}|}{|\s{AX}|} = φ   ⟹   |\s{AX}| = \f{|\s{AB}|}{φ} = \f{30}{φ}`, S`\f{30}{φ} ≈ 0,618 · 30 = 18,54`], p2: S`Es el segmento mayor.` },
+      { t: 'El segmento menor', l: [S`|\s{XB}| = |\s{AB}| − |\s{AX}| ≈ 30 − 18,54 = 11,46`] },
+      { t: 'Un control rápido', p: S`La mitad de 30 es 15. Como $18,54 > 15$, ese segmento ocupa más de la mitad: no puede ser el menor.` }
+    ] }
+];
+var EJM = {}; EJ.forEach(function (e) { EJM[e.id] = e; });
+var KEY = 'lb-geo1-media-extrema-v1';
+var ST = { ej: {}, tab: 'def' };
+function load() { try { var t = JSON.parse(localStorage.getItem(KEY) || 'null'); if (t && t.ej) ST = t; } catch (e) {} }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(ST)); } catch (e) {} }
+function est(id) { return ST.ej[id] || (ST.ej[id] = { ok: false, tries: 0, wrong: [], pistas: 0 }); }
+
+function resoHtml(e) {
+  return '<ol class="rs" style="padding-left:1.3em;margin:8px 0 0">' + e.reso.map(function (s) {
+    return '<li><b>' + R(s.t) + '.</b>' + (s.p ? ' ' + R(s.p) : '') + (s.l ? calc(s.l) : '') + (s.p2 ? '<div>' + R(s.p2) + '</div>' : '') + (s.l2 ? calc(s.l2) : '') + '</li>';
+  }).join('') + '</ol>';
+}
+function ejHtml(e, n) {
+  var cuerpo = e.tipo === 'mc'
+    ? '<div class="ops">' + e.ops.map(function (o, i) { return '<button class="op" data-op="' + i + '">' + R(o) + '</button>'; }).join('') + '</div>'
+    : '<div class="numrow"><label for="in-' + e.id + '">Tu respuesta</label><input id="in-' + e.id + '" inputmode="decimal" autocomplete="off" placeholder="con coma decimal"><span class="un">' + (e.un || '') + '</span><button class="btn" data-act="comprobar">Comprobar</button></div>';
+  return '<article class="ej" id="ej-' + e.id + '" data-ej="' + e.id + '"><div class="ej-h"><span class="badge">Ejercicio ' + n + '</span><span class="ej-st"></span></div>' +
+    '<div class="ej-enun">' + R(e.enun) + '</div>' + cuerpo + '<div class="fb" hidden aria-live="polite"></div>' +
+    '<div class="ej-acc"><button class="lnk" data-act="pista">Pedir una pista</button><button class="lnk" data-act="reso" disabled>Ver resolución paso a paso</button></div>' +
+    '<div class="pistas"></div><div class="reso" hidden></div></article>';
+}
+function fb(card, ok, html) { var f = $('.fb', card); f.hidden = false; f.className = 'fb ' + (ok ? 'si' : 'no'); f.innerHTML = '<b>' + (ok ? 'Correcto.' : 'Todavía no.') + '</b> ' + R(html); }
+function pintar(e) {
+  var card = $('#ej-' + e.id), s = est(e.id);
+  if (e.tipo === 'mc') $$('.op', card).forEach(function (b, i) {
+    b.classList.toggle('no', s.wrong.indexOf(i) >= 0); b.classList.toggle('si', s.ok && i === e.ok);
+    b.disabled = s.ok || s.wrong.indexOf(i) >= 0;
+  });
+  else { var inp = $('input', card); inp.classList.toggle('si', s.ok); if (s.ok) { inp.classList.remove('no'); inp.value = s.val || ''; inp.disabled = true; $('[data-act="comprobar"]', card).disabled = true; } else { inp.disabled = false; $('[data-act="comprobar"]', card).disabled = false; } }
+  $('.ej-st', card).textContent = s.ok ? '✓ Resuelto' : '';
+  $('[data-act="reso"]', card).disabled = s.tries === 0;
+  var ps = $('.pistas', card); ps.innerHTML = e.pistas.slice(0, s.pistas).map(function (p, i) { return '<div class="pista"><b>Pista ' + (i + 1) + '.</b> ' + R(p) + '</div>'; }).join('');
+  var pb = $('[data-act="pista"]', card); pb.disabled = s.pistas >= e.pistas.length; pb.textContent = s.pistas === 0 ? 'Pedir una pista' : (s.pistas >= e.pistas.length ? 'No quedan pistas' : 'Pedir otra pista');
+  if (s.ok && $('.fb', card).hidden) fb(card, true, e.fbOk);
+}
+function progreso() {
+  var n = EJ.filter(function (e) { return est(e.id).ok; }).length;
+  $('#prog').innerHTML = n + ' de ' + EJ.length + '<span class="lg"> ejercicios</span>';
+  $('#prog2').textContent = 'Práctica: ' + n + ' de ' + EJ.length + ' ejercicios resueltos';
+}
+function responderMC(id, i) {
+  var e = EJM[id], s = est(id), card = $('#ej-' + id); if (s.ok || s.wrong.indexOf(i) >= 0) return false;
+  s.tries++;
+  if (i === e.ok) { s.ok = true; fb(card, true, e.fbOk + ' La resolución completa está abajo.'); }
+  else { s.wrong.push(i); fb(card, false, e.fbNo[i]); }
+  pintar(e); progreso(); save(); return s.ok;
+}
+function responderNum(id, txt) {
+  var e = EJM[id], s = est(id), card = $('#ej-' + id); if (s.ok) return true;
+  var v = parseFloat(String(txt).trim().replace(/\s/g, '').replace('−', '-').replace(',', '.'));
+  if (!isFinite(v) || !/^[-−]?\d+([.,]\d+)?$/.test(String(txt).trim())) { var f = $('.fb', card); f.hidden = false; f.className = 'fb no'; f.innerHTML = 'Escribí solo un número, con coma decimal si hace falta.'; return false; }
+  s.tries++;
+  if (Math.abs(v - e.resp) <= e.tol) { s.ok = true; s.val = String(txt).trim(); fb(card, true, e.fbOk + ' La resolución completa está abajo.'); }
+  else { var msg = e.fbNo; (e.tr || []).forEach(function (t) { if (Math.abs(v - t.v) <= 0.011) msg = t.m; }); $('input', card).classList.add('no'); fb(card, false, msg); }
+  pintar(e); progreso(); save(); return s.ok;
+}
+function initPractica() {
+  var n = 0;
+  $$('[data-practica]').forEach(function (host) {
+    host.innerHTML = EJ.filter(function (e) { return e.tab === host.dataset.practica; }).map(function (e) { n++; return ejHtml(e, n); }).join('');
+  });
+  EJ.forEach(pintar); progreso();
+}
+
+/* =====================================================================
+   6. NAVEGACIÓN Y EVENTOS
+   ===================================================================== */
+var TABS = ['def', 'cuad', 'pot', 'oro', 'res'];
+function irA(t, scroll) {
+  if (TABS.indexOf(t) < 0) t = 'def';
+  $$('.tab-btn').forEach(function (b) { var on = b.dataset.tab === t; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); if (on && b.scrollIntoView && scroll) b.scrollIntoView({ block: 'nearest', inline: 'center' }); });
+  $$('.tab-content').forEach(function (s) { s.classList.toggle('active', s.id === 'tab-' + t); });
+  ST.tab = t; save();
+  if (scroll && $('#main').getBoundingClientRect().top < 0) $('#main').scrollIntoView({ block: 'start' });
+}
+var resetArmed = 0;
+document.addEventListener('click', function (ev) {
+  var t;
+  if ((t = ev.target.closest('.tab-btn'))) { irA(t.dataset.tab, true); return; }
+  if ((t = ev.target.closest('[data-go]'))) { irA(t.dataset.go, true); $('#main').scrollIntoView({ block: 'start' }); return; }
+  if ((t = ev.target.closest('.acc-h'))) { var a = t.parentNode; a.classList.toggle('open'); t.setAttribute('aria-expanded', a.classList.contains('open')); if (a.classList.contains('open') && t.getBoundingClientRect().top < 60) t.scrollIntoView({ block: 'start' }); return; }
+  if ((t = ev.target.closest('.stepper [data-act]'))) { var fg = FIGS[t.closest('.figbox').dataset.fig]; fg.set(fg.stage + (t.dataset.act === 'next' ? 1 : -1)); return; }
+  if ((t = ev.target.closest('.st-go'))) { var box = t.closest('.figbox'); FIGS[box.dataset.fig].set(+t.dataset.stage); if (box.getBoundingClientRect().top < 50) box.scrollIntoView({ block: 'start' }); return; }
+  if ((t = ev.target.closest('.seg-b[data-modo]'))) { lab1Modo(t.dataset.modo); return; }
+  if ((t = ev.target.closest('.op'))) { responderMC(t.closest('.ej').dataset.ej, +t.dataset.op); return; }
+  if ((t = ev.target.closest('.ej [data-act]'))) {
+    var card = t.closest('.ej'), e = EJM[card.dataset.ej], s = est(e.id);
+    if (t.dataset.act === 'comprobar') responderNum(e.id, $('input', card).value);
+    else if (t.dataset.act === 'pista') { s.pistas = Math.min(e.pistas.length, s.pistas + 1); pintar(e); save(); }
+    else if (t.dataset.act === 'reso') { var r = $('.reso', card); if (r.hidden) { r.innerHTML = resoHtml(e); r.hidden = false; t.textContent = 'Ocultar la resolución'; } else { r.hidden = true; t.textContent = 'Ver resolución paso a paso'; } }
+    return;
+  }
+  if ((t = ev.target.closest('#reset'))) {
+    if (Date.now() - resetArmed < 4000) { ST.ej = {}; save(); resetArmed = 0; t.textContent = 'Borrar mi progreso'; $$('.ej').forEach(function (c) { $('.fb', c).hidden = true; $('.reso', c).hidden = true; var i = $('input', c); if (i) { i.value = ''; i.classList.remove('no'); } $('[data-act="reso"]', c).textContent = 'Ver resolución paso a paso'; }); EJ.forEach(pintar); progreso(); }
+    else { resetArmed = Date.now(); t.textContent = 'Tocá de nuevo para borrar todo'; setTimeout(function () { if (resetArmed) { resetArmed = 0; t.textContent = 'Borrar mi progreso'; } }, 4000); }
+  }
+});
+document.addEventListener('keydown', function (ev) { if (ev.key === 'Enter' && ev.target.matches && ev.target.matches('.numrow input')) { var c = ev.target.closest('.ej'); responderNum(c.dataset.ej, ev.target.value); } });
+
+/* =====================================================================
+   7. AUTOTEST
+   ===================================================================== */
+function autotest() {
+  var T = [], ok = function (n, c) { T.push({ n: n, ok: !!c }); }, eq = function (a, b) { return Math.abs(a - b) < 1e-9; };
+  var g = GEO.cu, t = GEO.ts;
+  ok('cuadrado: E punto medio de AD', eq(dist(g.E, g.A), dist(g.E, g.D)));
+  ok('interior: EF = EB', eq(dist(g.E, g.F), dist(g.E, g.B)));
+  ok('interior: AFGX cuadrado', eq(dist(g.A, g.F), dist(g.A, g.X)) && eq(dist(g.F, g.G), dist(g.G, g.X)) && eq(g.G[0], g.X[0]) && eq(g.G[1], g.F[1]));
+  ok('interior: área DFGL = AB²', eq(dist(g.D, g.F) * dist(g.F, g.G), 4));
+  ok('interior: AX² = AB·XB', eq(Math.pow(dist(g.A, g.X), 2), 2 * dist(g.X, g.B)));
+  ok('interior: AB/AX = AX/XB = φ', eq(2 / dist(g.A, g.X), PHI) && eq(dist(g.A, g.X) / dist(g.X, g.B), PHI));
+  ok('interior: AX = (√5−1)/2·l', eq(dist(g.A, g.X), (R5 - 1) / 2 * 2));
+  ok('interior: L sobre DC y bajo X', eq(g.L[1], -2) && eq(g.L[0], g.X[0]));
+  ok('exterior: EF′ = EB', eq(dist(g.E, g.F2), dist(g.E, g.B)));
+  ok('exterior: AF′G′X′ cuadrado', eq(dist(g.A, g.F2), dist(g.A, g.X2)) && eq(g.G2[0], g.X2[0]) && eq(g.G2[1], g.F2[1]));
+  ok('exterior: área L′DF′G′ = AB²', eq(dist(g.D, g.F2) * dist(g.F2, g.G2), 4));
+  ok('exterior: AX′² = AB·X′B', eq(Math.pow(dist(g.A, g.X2), 2), 2 * dist(g.X2, g.B)));
+  ok('exterior: AX′ = (√5+1)/2·l', eq(dist(g.A, g.X2), (R5 + 1) / 2 * 2));
+  ok('exterior: AX′/AB = φ', eq(dist(g.A, g.X2) / 2, PHI));
+  ok('tangente: OT ⊥ AT y OT = AT/2', eq(t.O[0], t.T[0]) && eq(dist(t.O, t.T), 1));
+  ok('tangente: N y M sobre la circunferencia y alineados con A, O', eq(dist(t.O, t.N), 1) && eq(dist(t.O, t.M), 1) && eq(t.N[0] * t.O[1] - t.N[1] * t.O[0], 0) && eq(t.M[0] * t.O[1] - t.M[1] * t.O[0], 0));
+  ok('tangente: AT² = AM·AN', eq(4, dist(t.A, t.M) * dist(t.A, t.N)));
+  ok('tangente: MN = AT', eq(dist(t.M, t.N), 2));
+  ok('tangente: AX = AN', eq(dist(t.A, t.X), dist(t.A, t.N)));
+  ok('tangente: AT/AX = AX/XT', eq(2 / dist(t.A, t.X), dist(t.A, t.X) / dist(t.X, t.T)));
+  ok('tangente: (AM−MN)/MN = (MN−AN)/AN', eq((dist(t.A, t.M) - 2) / 2, (2 - dist(t.A, t.N)) / dist(t.A, t.N)));
+  ok('φ² = φ + 1', eq(PHI * PHI, PHI + 1));
+  ok('1/φ = φ − 1 = (√5−1)/2', eq(1 / PHI, PHI - 1) && eq(PHI - 1, (R5 - 1) / 2));
+  ok('raíz descartada ≈ −0,618', Math.abs((1 - R5) / 2 + 0.618) < 5e-4);
+  ok('decimales: √5 ≈ 2,236; φ ≈ 1,618', Math.abs(R5 - 2.236) < 5e-4 && Math.abs(PHI - 1.618) < 5e-4);
+  ok('l = 2: AX² = 6 − 2√5 = AB·XB', eq(Math.pow(R5 - 1, 2), 6 - 2 * R5) && eq(2 * (3 - R5), 6 - 2 * R5));
+  ok('error T2: √5/2 ≈ 1,118', Math.abs(R5 / 2 - 1.118) < 5e-4);
+  ok('error T3 mal: √8 ≈ 2,8284; razones ≈ 2,414 y 0,707 (valores reales √2 + 1 y 1/√2)', Math.abs(Math.sqrt(8) - 2.8284) < 5e-5 && Math.abs(2 / 0.8284 - 2.414) < 5e-4 && Math.abs(0.8284 / 1.1716 - 0.707) < 5e-4 && Math.abs(Math.SQRT2 + 1 - 2.414) < 5e-4 && Math.abs(Math.SQRT1_2 - 0.707) < 5e-4);
+  ok('error T3 bien: 2/1,236 ≈ 1,618; 1,236/0,764 ≈ 1,618', Math.abs(2 / 1.236 - 1.618) < 1e-3 && Math.abs(1.236 / 0.764 - 1.618) < 1e-3);
+  ok('e1: 36 > 27 y punto áureo de 9 antes de 6', 36 > 27 && 9 / PHI < 6);
+  ok('e2: √49 = 7', eq(EJM.e2.resp, 7));
+  ok('e4: 6 cm → 3,71', Math.abs(EJM.e4.resp - 3.708) < 5e-4 && Math.abs(Math.sqrt(45) - 6.708) < 5e-4 && Math.abs(0.618 * 6 - 3.708) < 1e-9);
+  ok('e6: AB = 14 → AX′ ≈ 22,65; trampas 8,65, 15,65 y 29,65', Math.abs(EJM.e6.resp - 22.652) < 5e-4 && eq(7 * 2.236, 15.652) && Math.abs(Math.sqrt(245) - 15.652) < 5e-4 && eq(1.618 * 14, 22.652) && Math.abs(7 * (R5 - 1) - 8.65) < 5e-3 && Math.abs(7 * R5 - 15.65) < 5e-3 && Math.abs(14 + 7 * R5 - 29.65) < 5e-3);
+  ok('e7: 8 cm → 4,94', Math.abs(EJM.e7.resp - 4.944) < 5e-4 && Math.abs(Math.sqrt(80) - 8.944) < 5e-4 && eq(0.618 * 8, 4.944));
+  ok('e11: φ³ = 2φ + 1 ≈ 4,236 y los distractores no', eq(PHI * PHI * PHI, 2 * PHI + 1) && eq(1.618 * 1.618, 2.617924) && Math.abs(2.617924 * 1.618 - 4.236) < 5e-4 && Math.abs(2 * 1.618 + 1 - 4.236) < 1e-9 && Math.abs(PHI * PHI * PHI - 4.236) < 5e-4 && [3 * PHI, PHI + 2, 3 * PHI - 1].every(function (x) { return Math.abs(x - PHI * PHI * PHI) > 0.3; }));
+  ok('e13: AB = 4 → EB ≈ 4,472, AX ≈ 2,47; distractores 6,47 y 3,12', Math.abs(Math.sqrt(20) - 4.472) < 5e-4 && eq(2 * 2.236, 4.472) && Math.abs(2 * (R5 - 1) - 2.472) < 5e-4 && Math.abs(Math.sqrt(17) - 4.123) < 5e-4 && Math.abs(2 + Math.sqrt(20) - 6.472) < 5e-4);
+  ok('e9: tangente 6, AN 4, AM 9 es una figura posible', eq(36, 9 * 4) && eq(Math.pow(6.5, 2) - Math.pow(2.5, 2), 36));
+  ok('e10: 1,618 · 20 = 32,36', eq(1.618 * 20, 32.36));
+  ok('e12: 30/φ ≈ 0,618 · 30 = 18,54 y 30 − 18,54 = 11,46', Math.abs(30 / PHI - 18.54) < 5e-3 && eq(0.618 * 30, 18.54) && eq(30 - 18.54, 11.46));
+  ok('e4, e7: 3 · 2,236 = 6,708 y 4 · 2,236 = 8,944', eq(3 * 2.236, 6.708) && eq(4 * 2.236, 8.944));
+  ok('las trampas numéricas no coinciden con la respuesta', EJ.every(function (e) { return !e.tr || e.tr.every(function (x) { return Math.abs(x.v - e.resp) > e.tol + 0.011; }); }));
+  ok('cada opción incorrecta tiene devolución', EJ.every(function (e) { return e.tipo !== 'mc' || (e.fbNo.length === e.ops.length && e.fbNo.every(function (f, i) { return i === e.ok ? f === '' : f.length > 0; })); }));
+  return T;
+}
+
+/* =====================================================================
+   8. ARRANQUE
+   ===================================================================== */
+load();
+$$('[data-mini]').forEach(function (el) { el.innerHTML = mini(el.dataset.mini); });
+renderStatic($('#main'));
+['f1', 'f2', 'f3'].forEach(initFig);
+lab1Init(); lab2Init(); initPractica();
+var h = (location.hash || '').replace('#', '');
+irA(TABS.indexOf(h) >= 0 ? h : (ST.tab || 'def'), false);
+
+window.__autotest = autotest; window.EJ = EJ; window.FIGS = FIGS;
+window.responderMC = responderMC; window.responderNum = responderNum; window.irA = irA;
+})();
+</script>
+</body>
+</html>
